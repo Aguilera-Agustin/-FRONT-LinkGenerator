@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
 import {  Button, Divider, Hidden, makeStyles, Paper, Typography } from '@material-ui/core'
+import { useSelector } from "react-redux";
 
 
 const useStyles = makeStyles(theme=>({
@@ -45,11 +46,12 @@ const useStyles = makeStyles(theme=>({
 export const PaymentScreen = ({title, children, button}) => {
     const history = useHistory()
     const classes = useStyles()
+    const {amount} = useSelector(state => state.url.urlData)
     return (
         <Paper elevation={8} component='form' className={classes.formContainer} square>
             <div className={classes.img} >
                 <Typography variant='button' style={{fontWeight:'lighter', margin:'0 1rem'}} >A pagar</Typography>
-                <Typography variant='h3' style={{fontWeight:'lighter',}} >$20000.000</Typography>
+                <Typography variant='h3' style={{fontWeight:'lighter',}} >{`$${amount}`}</Typography>
             </div>
             <div style={{width:'100%'}}>
                 <Hidden smUp>

@@ -41,14 +41,14 @@ export const Method = ({data}) => {
     return (
         <>
         {link?(
-            <Paper elevation={3} square  className={disabled?(classes.disabledContainer):(classes.container)} component={Link} to={link}>
+            <Paper elevation={3} square  className={disabled===0?(classes.disabledContainer):(classes.container)} component={Link} to={link}>
                 {icon}
                 <Typography  variant='h6' color='textSecondary' style={{textDecoration:'none'}}>{title}</Typography>
             </Paper>
         )    
             :
             (
-                <Paper elevation={3} square className={disabled?(classes.disabledContainer):(classes.container)} onClick={disabled?(null):(action)}>
+                <Paper elevation={3} square className={disabled===0?(classes.disabledContainer):(classes.container)} onClick={disabled===0?(null):(action)}>
                     {icon}
                     <Typography  variant='h6' color='textSecondary'>{title}</Typography>
                 </Paper>

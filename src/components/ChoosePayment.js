@@ -4,6 +4,7 @@ import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
 import { Method } from "./Method"
+import { useSelector } from "react-redux";
 
 
 
@@ -35,9 +36,9 @@ const useStyles = makeStyles({
 export const ChoosePayment = () => {
 
     const classes = useStyles()
-
+    const {mp_transfer, crypto_transfer, bank_transfer, mpLink} = useSelector(state => state.url.urlData)
     const mercadoPagoOnClick = () =>{
-        window.location.replace('https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=220551724-569e5abe-5676-4cbe-b122-1ec170138c79');
+        window.location.assign(mpLink);
     }
 
     const paymentMethods = [
@@ -45,19 +46,22 @@ export const ChoosePayment = () => {
             name:'mercadopago',
             title:'Mercado Pago',
             icon: <MonetizationOnIcon className={classes.logo}/>,
-            action: mercadoPagoOnClick
+            disabled:mp_transfer,
+            action: mercadoPagoOnClick,
         },
         {
             name:'criptomoneda',
             title:'Criptomoneda',
             icon: <AccountBalanceWalletIcon className={classes.logo}/>,
-            link:'/asdasd/crypto'
+            link:'/asdasd/crypto',
+            disabled:crypto_transfer
         },
         {
             name:'transferencia',
             title:'Transferencia Bancaria',
             icon: <AccountBalanceIcon className={classes.logo}/>,
-            action: ()=>{console.log('hi')}
+            action: ()=>{console.log('hi')},
+            disabled:bank_transfer
         },
     
     ] 
