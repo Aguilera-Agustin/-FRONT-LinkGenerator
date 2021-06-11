@@ -46,22 +46,22 @@ export const ChoosePayment = () => {
             name:'mercadopago',
             title:'Mercado Pago',
             icon: <MonetizationOnIcon className={classes.logo}/>,
-            disabled:mp_transfer,
             action: mercadoPagoOnClick,
+            disabled:mp_transfer===0
         },
         {
             name:'criptomoneda',
             title:'Criptomoneda',
             icon: <AccountBalanceWalletIcon className={classes.logo}/>,
             link:'/asdasd/crypto',
-            disabled:crypto_transfer
+            disabled:crypto_transfer===0
         },
         {
             name:'transferencia',
             title:'Transferencia Bancaria',
             icon: <AccountBalanceIcon className={classes.logo}/>,
             action: ()=>{console.log('hi')},
-            disabled:bank_transfer
+            disabled:bank_transfer===0
         },
     
     ] 
