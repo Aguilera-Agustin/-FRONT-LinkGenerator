@@ -4,4 +4,7 @@ export const types = {
     cryptoLogin: '[CRYPTO] Login',
     cryptoError: '[CRYPTO] Error',
     cryptoSuccessfull: '[CRYPTO] Successfull',
+
+    dbStartLoading:'[DB] Start loading',
+    dbRetrieveData:'[DB] Retrieve Data',
 }

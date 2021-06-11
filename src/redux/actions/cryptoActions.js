@@ -1,8 +1,4 @@
-import Web3 from "web3"
 import { types } from '../types/types'
-import { BscConnector } from '@binance-chain/bsc-connector'
-import Common from '@ethereumjs/common'
-import { Transaction } from '@ethereumjs/tx'
 import detectEthereumProvider from '@metamask/detect-provider';
 
 
