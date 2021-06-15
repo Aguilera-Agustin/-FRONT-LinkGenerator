@@ -5,13 +5,14 @@ export const startGetDataFromId = (id)=>{
     return async (dispatch)=>{
         const customId = id.split(' ').join('+')
         const myData = await customAxios('url/desencrypt', {id: customId}, 'post')
+        const dataWithId = {...myData, enrcyptedId:customId}
         if(myData.mp_transfer===1){
-            const mpLink = await customAxios('pay/mercadopago', {amount: myData.amount}, 'post')
-            const finalData = {...myData, mpLink}
+            const mpLink = await customAxios('pay/mercadopago', {amount: dataWithId.amount}, 'post')
+            const finalData = {...dataWithId, mpLink}
             dispatch(collectData(finalData))
         }
         else{
-            dispatch(collectData(myData))
+            dispatch(collectData(dataWithId))
         }
     }
 }

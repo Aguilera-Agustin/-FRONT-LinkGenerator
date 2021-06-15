@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 export const ChoosePayment = () => {
 
     const classes = useStyles()
-    const {mp_transfer, crypto_transfer, bank_transfer, mpLink} = useSelector(state => state.url.urlData)
+    const {mp_transfer, crypto_transfer, bank_transfer, mpLink, enrcyptedId} = useSelector(state => state.url.urlData)
     const mercadoPagoOnClick = () =>{
         window.location.assign(mpLink);
     }
@@ -47,21 +47,21 @@ export const ChoosePayment = () => {
             title:'Mercado Pago',
             icon: <MonetizationOnIcon className={classes.logo}/>,
             action: mercadoPagoOnClick,
-            disabled:mp_transfer===0
+            disabled:mp_transfer===-1
         },
         {
             name:'criptomoneda',
             title:'Criptomoneda',
             icon: <AccountBalanceWalletIcon className={classes.logo}/>,
-            link:'/asdasd/crypto',
-            disabled:crypto_transfer===0
+            link:`/${enrcyptedId}/crypto`,
+            disabled:crypto_transfer===-1
         },
         {
             name:'transferencia',
             title:'Transferencia Bancaria',
             icon: <AccountBalanceIcon className={classes.logo}/>,
             action: ()=>{console.log('hi')},
-            disabled:bank_transfer===0
+            disabled:bank_transfer===-1
         },
     
     ] 
