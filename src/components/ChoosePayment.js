@@ -60,7 +60,7 @@ export const ChoosePayment = () => {
             name:'transferencia',
             title:'Transferencia Bancaria',
             icon: <AccountBalanceIcon className={classes.logo}/>,
-            action: ()=>{console.log('hi')},
+            link:`/${enrcyptedId}/bank_transfer`,
             disabled:bank_transfer===-1
         },
     

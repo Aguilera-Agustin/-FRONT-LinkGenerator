@@ -1,6 +1,7 @@
 import { types } from '../types/types'
 import detectEthereumProvider from '@metamask/detect-provider';
 import Swal from 'sweetalert2'
+import { customAxios } from '../../helpers/fetch';
 
 
 export const loginCheck =  () =>{
@@ -79,5 +80,30 @@ export const transfer = (user) =>{
             title: 'Oops...',
             text: 'Por favor, elija una network válida desde su billetera: Binance - Polygon - Ethereum',
           })
+    }
+}
+
+
+export const payWithBank = (data, id) =>{
+    return async (dispatch) =>{
+            const file = data
+            const reader = new FileReader()
+            reader.readAsDataURL(file)
+            reader.onload=async function(){
+                const base64 = reader.result
+                const dataToDb = {
+                    id,
+                    img: base64
+                }
+                const res = await customAxios('pay/buyInProcess', dataToDb, 'put' )
+                if(res==='Success'){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                }
+        }
     }
 }

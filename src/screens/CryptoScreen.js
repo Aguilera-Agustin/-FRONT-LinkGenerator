@@ -4,7 +4,7 @@ import { PaymentScreen } from "./PaymentScreen"
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import SendIcon from '@material-ui/icons/Send';
 import { useDispatch, useSelector } from "react-redux";
-import { loginCheck, transfer } from "../redux/actions/cryptoActions";
+import { loginCheck, transfer } from "../redux/actions/paymentActions";
 
 const useStyles = makeStyles({
     container:{

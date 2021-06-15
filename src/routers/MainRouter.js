@@ -7,6 +7,7 @@ import {
 import { ChooseMethodScreen } from '../screens/ChooseMethodScreen';
 import { CryptoScreen } from '../screens/CryptoScreen';
 import { NotFound } from '../screens/NotFound';
+import { TransferScreen } from '../screens/TransferScreen';
 
 
 
@@ -19,7 +20,7 @@ export const MainRouter = () => {
             <Switch>
                 <Route path="/:id" exact component={ ChooseMethodScreen }/>
                 <Route path="/:id/crypto" exact component={ CryptoScreen }/>
-                <Route path="/:id/bank_transfer" exact component={ CryptoScreen }/>
+                <Route path="/:id/bank_transfer" exact component={ TransferScreen }/>
                 <Route path='/' exact component={NotFound}/>
             </Switch>
         </Router>
