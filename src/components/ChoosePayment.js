@@ -5,6 +5,7 @@ import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
 import { Method } from "./Method"
 import { useSelector } from "react-redux";
+import Swal from 'sweetalert2'
 
 
 
@@ -38,7 +39,16 @@ export const ChoosePayment = () => {
     const classes = useStyles()
     const {mp_transfer, crypto_transfer, bank_transfer, mpLink, enrcyptedId} = useSelector(state => state.url.urlData)
     const mercadoPagoOnClick = () =>{
-        window.location.assign(mpLink);
+        Swal.fire({
+            title: 'Para que se confirme el pago, deberá esperar a ser reedirigido a nuestra página. Esto es por motivos de seguridad.',
+            showCancelButton: true,
+            confirmButtonText: `Ok`,
+            denyButtonText: `Don't save`,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.assign(mpLink);
+            }
+          })
     }
 
     const paymentMethods = [
