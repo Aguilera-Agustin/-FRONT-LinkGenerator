@@ -40,7 +40,7 @@ export const Method = ({data}) => {
     
     return (
         <>
-        {link?(
+        {(link && !disabled)?(
             <Paper elevation={3} square  className={disabled?(classes.disabledContainer):(classes.container)} component={Link} to={link}>
                 {icon}
                 <Typography  variant='h6' color='textSecondary' style={{textDecoration:'none'}}>{title}</Typography>
