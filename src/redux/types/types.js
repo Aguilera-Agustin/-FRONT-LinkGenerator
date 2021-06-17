@@ -6,5 +6,6 @@ export const types = {
     cryptoSuccessfull: '[CRYPTO] Successfull',
 
     dbStartLoading:'[DB] Start loading',
+    dbEndLoading:'[DB] End loading',
     dbRetrieveData:'[DB] Retrieve Data',
 }

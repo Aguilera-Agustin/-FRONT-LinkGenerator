@@ -2,7 +2,7 @@ import { types } from '../types/types';
 
 const initialState = {
     urlData:'',
-    loading: false
+    loading: true
 }
 
 const urlReducer = (state= initialState, action) => {
@@ -11,8 +11,17 @@ const urlReducer = (state= initialState, action) => {
            return{
                ...state,
                urlData:action.payload,
-               loading: false
            }
+        case types.dbStartLoading:
+            return{
+                ...state,
+                loading: true
+            }
+        case types.dbEndLoading:
+            return{
+                ...state,
+                loading: false
+            }
         default:
             return state;
     }

@@ -6443,6 +6443,11 @@
   dependencies:
     "minimatch" "^3.0.4"
 
+"downloadjs@^1.4.7":
+  "integrity" "sha1-9p+W+UDg0FU9rCkROYZaPNAQHjw="
+  "resolved" "https://registry.npmjs.org/downloadjs/-/downloadjs-1.4.7.tgz"
+  "version" "1.4.7"
+
 "drbg.js@^1.0.1":
   "integrity" "sha1-Pja2xCs3BDgjzbwzLVjzHiRFSAs="
   "resolved" "https://registry.npmjs.org/drbg.js/-/drbg.js-1.0.1.tgz"
