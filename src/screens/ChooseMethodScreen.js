@@ -15,7 +15,9 @@ export const ChooseMethodScreen = () => {
     const {loading, urlData} = useSelector(state => state.url)
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(startGetDataFromId(id))
+        if(!urlData){
+            dispatch(startGetDataFromId(id))
+        }
     }, [dispatch])
     return (
         <>
