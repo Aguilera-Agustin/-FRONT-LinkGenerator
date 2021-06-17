@@ -26,7 +26,7 @@ export const ChooseMethodScreen = () => {
                         urlData?(
                             <>
                             {
-                                urlData.status===2?(
+                                urlData.status===1?(
                                     <Sucess id={urlData.enrcyptedId}/>         
                                 )
                                 :
