@@ -35,7 +35,7 @@ export const CryptoScreen = () => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.payment.userAddress)
     const available = useSelector(state => state.url.urlData.crypto_transfer)
-
+    const amount = useSelector(state=>state.url.urlData.amount)
     
 
     const handleOnLogin = () =>{
@@ -43,7 +43,7 @@ export const CryptoScreen = () => {
     }
 
     const handleOnPay = () =>{
-        dispatch(transfer(user))
+        dispatch(transfer(user, amount ))
     }
    
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import download from 'downloadjs'
 
 
-export const customAxios = async (endpoint,myData,method='get' ) => {
+export const customAxios = async (endpoint,myData={},method='get' ) => {
     const basePath = process.env.REACT_APP_API_URL
     const config = {
     method,

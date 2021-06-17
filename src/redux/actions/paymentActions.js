@@ -1,7 +1,8 @@
 import { types } from '../types/types'
-import detectEthereumProvider from '@metamask/detect-provider';
+//import detectEthereumProvider from '@metamask/detect-provider';
 import Swal from 'sweetalert2'
 import { customAxios } from '../../helpers/fetch';
+import Web3 from 'web3';
 
 
 export const loginCheck =  () =>{
@@ -32,10 +33,11 @@ const login = (account) =>({
 })
 
 
-export const transfer = (user) =>{
+export const transfer = (user, amount) =>{
     return async (dispatch) =>{
-        const provider = await detectEthereumProvider();
-        
+        //const provider = await detectEthereumProvider();
+        const web3 = new Web3(Web3.givenProvider || "ws://localhost:8546");
+        const moneyValue = await customAxios(`pay/priceByAmount/${amount}`)
         const chainId = await window.ethereum.request({ method: 'eth_chainId' });
         const networks = {
             binance: '0x38', // 56 in Hexa
@@ -43,43 +45,46 @@ export const transfer = (user) =>{
             ethereum: '0x1'
         }
         if(chainId===networks.binance){
-            const transactionParameters = {
-                to: '0x0000000000000000000000000000000000000000', // Required except during contract publications.
-                from: user[0], // must match user's active address.
-                value: '0x00', // Only required to send ether to the recipient from the initiating external account.
-                chainId
-              };
-              const confirmation = await window.ethereum.request({
-                method: 'eth_sendTransaction',
-                params: [transactionParameters],
-              });
+            web3.eth.sendTransaction({
+              from: user[0],
+              to: '0x2f318C334780961FB129D2a6c30D0763d9a5C970',
+              value: web3.utils.toWei(moneyValue.toString(), 'ether'),
+        
+            }, (result) => {
+              console.log(result)
+            })
         }
-        if(chainId===networks.polygon){
+        else if(chainId===networks.polygon){
+            web3.eth.sendTransaction({
+              from: user[0],
+              to: '0x2f318C334780961FB129D2a6c30D0763d9a5C970',
+              value: web3.utils.toWei(moneyValue.toString(), 'ether'),
+        
+            }, (result) => {
+              console.log(result)
+            })
             return console.log("Polygon")
             
         }
-        if(chainId===networks.ethereum){
+        else if(chainId===networks.ethereum){
+            web3.eth.sendTransaction({
+              from: user[0],
+              to: '0x2f318C334780961FB129D2a6c30D0763d9a5C970',
+              value: web3.utils.toWei(moneyValue.toString(), 'ether'),
+        
+            }, (result) => {
+              console.log(result)
+            })
             return console.log("Ethereum")
-
+            
         }
         else{
-            const transactionParameters = {
-                to: '0x0000000000000000000000000000000000000000', // Required except during contract publications.
-                from: user[0], // must match user's active address.
-                value: '0x00', // Only required to send ether to the recipient from the initiating external account.
-                chainId
-              };
-              const confirmation = await window.ethereum.request({
-                method: 'eth_sendTransaction',
-                params: [transactionParameters],
-              });
-              console.log(confirmation)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Por favor, elija una network válida desde su billetera: Binance - Polygon - Ethereum',
+              })
         }
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Por favor, elija una network válida desde su billetera: Binance - Polygon - Ethereum',
-          })
     }
 }
 
