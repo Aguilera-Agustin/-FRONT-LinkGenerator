@@ -1,7 +1,6 @@
 import axios from 'axios';
 import download from 'downloadjs'
 
-
 export const customAxios = async (endpoint,myData={},method='get' ) => {
     const basePath = process.env.REACT_APP_API_URL
     const config = {
@@ -46,4 +45,24 @@ export const getPdf = (id, setLoading) => {
     .catch(function (error) {
     console.log(error);
     });
+}
+
+export const sendImage = async (id, data) => {
+    console.log(data)
+    const formData = new FormData();
+    formData.append('img', data);
+    formData.append('id', id)
+    console.log(formData)
+    axios.put('http://localhost:8080/api/pay/buyInProcess', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': 'Basic YWd1c3RpbjphZ3VpbGVyYQ=='
+          }
+    })
+    .then(()=>{
+        console.log('SUCCESS')
+    })
+    .catch(()=>{
+        console.log("ERROR")
+    })
 }
