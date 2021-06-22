@@ -34,6 +34,10 @@ const collectData = (data) =>({
     payload: data
 })
 
+export const transferSuccess = () =>({
+    type: types.dbTransferSuccess
+})
+
 const startLoading = () =>({
     type: types.dbStartLoading
 })
@@ -41,3 +45,4 @@ const startLoading = () =>({
 const endLoading = () =>({
     type: types.dbEndLoading
 })
+

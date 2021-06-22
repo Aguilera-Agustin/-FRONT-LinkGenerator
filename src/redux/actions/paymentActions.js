@@ -1,8 +1,9 @@
 import { types } from '../types/types'
 //import detectEthereumProvider from '@metamask/detect-provider';
 import Swal from 'sweetalert2'
-import { customAxios } from '../../helpers/fetch';
+import { customAxios, sendImage } from '../../helpers/fetch';
 import Web3 from 'web3';
+import { collectData, startGetDataFromId } from './urlActions';
 
 
 export const loginCheck =  () =>{
@@ -91,24 +92,24 @@ export const transfer = (user, amount) =>{
 
 export const payWithBank = (data, id) =>{
     return async (dispatch) =>{
-            const file = data
-            const reader = new FileReader()
-            reader.readAsDataURL(file)
-            reader.onload=async function(){
-                const base64 = reader.result
-                const dataToDb = {
-                    id,
-                    img: base64
-                }
-                const res = await customAxios('pay/buyInProcess', dataToDb, 'put' )
-                if(res==='Success'){
+        const res = await sendImage(id, data)
+                if(res.status===200){
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',
                         showConfirmButton: false,
                         timer: 1500
-                      })
+                    })
+                    dispatch(startGetDataFromId(id))
                 }
-        }
+            else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Internal Server Error',
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
+            }
+        
     }
 }

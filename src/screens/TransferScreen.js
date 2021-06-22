@@ -24,6 +24,7 @@ export const TransferScreen = () => {
         document.querySelector('#fileSelector').click()
     }
     const handleFileChange = (e) =>{
+        console.log(e.target.files)
         dispatch(payWithBank(e.target.files[0], encryptedId))
     }
     return (
