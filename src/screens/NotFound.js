@@ -3,10 +3,11 @@ import { orange } from "@material-ui/core/colors"
 
 const useStyles = makeStyles({
     paper:{
-        width:'50vw',
+        width:'70vw',
         height:'17rem',
         position:'relative',
         top:100,
+        padding: '1rem',
         margin:'auto',
         display:'flex',
         alignItems:'center',

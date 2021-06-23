@@ -54,14 +54,14 @@ export const ChoosePayment = () => {
             name:'criptomoneda',
             title:'Criptomoneda',
             icon: <AccountBalanceWalletIcon className={classes.logo}/>,
-            link:`/${enrcyptedId}/crypto`,
+            link:`/crypto`,
             disabled:crypto_transfer===-1
         },
         {
             name:'transferencia',
             title:'Transferencia Bancaria',
             icon: <AccountBalanceIcon className={classes.logo}/>,
-            link:`/${enrcyptedId}/bank_transfer`,
+            link:`/bank_transfer`,
             disabled:bank_transfer===-1
         },
     

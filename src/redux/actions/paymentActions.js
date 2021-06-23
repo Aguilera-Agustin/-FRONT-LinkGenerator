@@ -35,19 +35,27 @@ const login = (account) =>({
 })
 
 
-export const transfer = (user, amount) =>{
+export const transfer = (id, user, amount) =>{
     return async (dispatch) =>{
         const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
         const contractInstance = new web3.eth.Contract(abiUSDT, addressUSDT);
-        const myAmount = 200;
         const tx = {
             from: user[0],
             to: contractInstance._address,
-            data: contractInstance.methods.transfer('0x2f318C334780961FB129D2a6c30D0763d9a5C970', web3.utils.toWei( myAmount.toString() ) ).encodeABI(),
-            gas: 21000,  
+            data: contractInstance.methods.transfer('0x2f318C334780961FB129D2a6c30D0763d9a5C970', web3.utils.toWei( amount.toString(), 'lovelace' ) ).encodeABI(),
         }
         web3.eth.sendTransaction(tx).then(res => {
-            console.log("res",res)
+            const transactionNumber = res.transactionHash
+            customAxios('pay/buySuccess', {id, follow_number_crypto: transactionNumber}, 'put')
+                .then((dbRes) => {
+                    if(dbRes==='Success!'){
+                        console.log('Compra exitosa')
+                    }
+                    else{
+                        console.log('Compra rechazada')
+                    }
+                })
+                .catch(dbErr => console.log(dbErr))
         }).catch(err => {
             console.log("err",err)
         });
