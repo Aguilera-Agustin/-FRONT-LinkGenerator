@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
 import { customAxios, sendImage } from '../../helpers/fetch';
 import Web3 from 'web3';
 import { collectData, startGetDataFromId } from './urlActions';
+import { abiUSDT, addressUSDT } from './abiaddress';
 
 
 export const loginCheck =  () =>{
@@ -36,56 +37,21 @@ const login = (account) =>({
 
 export const transfer = (user, amount) =>{
     return async (dispatch) =>{
-        //const provider = await detectEthereumProvider();
-        const web3 = new Web3(Web3.givenProvider || "ws://localhost:8546");
-        const moneyValue = await customAxios(`pay/priceByAmount/${amount}`)
-        const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-        const networks = {
-            binance: '0x38', // 56 in Hexa
-            polygon: '0x89', // 137 in Hexa,
-            ethereum: '0x1'
+        const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+        const contractInstance = new web3.eth.Contract(abiUSDT, addressUSDT);
+        const myAmount = 200;
+        const tx = {
+            from: user[0],
+            to: contractInstance._address,
+            data: contractInstance.methods.transfer('0x2f318C334780961FB129D2a6c30D0763d9a5C970', web3.utils.toWei( myAmount.toString() ) ).encodeABI(),
+            gas: 21000,  
         }
-        if(chainId===networks.binance){
-            web3.eth.sendTransaction({
-              from: user[0],
-              to: '0x2f318C334780961FB129D2a6c30D0763d9a5C970',
-              value: web3.utils.toWei(moneyValue.toString(), 'ether'),
-        
-            }, (result) => {
-              console.log(result)
-            })
-        }
-        else if(chainId===networks.polygon){
-            web3.eth.sendTransaction({
-              from: user[0],
-              to: '0x2f318C334780961FB129D2a6c30D0763d9a5C970',
-              value: web3.utils.toWei(moneyValue.toString(), 'ether'),
-        
-            }, (result) => {
-              console.log(result)
-            })
-            return console.log("Polygon")
-            
-        }
-        else if(chainId===networks.ethereum){
-            web3.eth.sendTransaction({
-              from: user[0],
-              to: '0x2f318C334780961FB129D2a6c30D0763d9a5C970',
-              value: web3.utils.toWei(moneyValue.toString(), 'ether'),
-        
-            }, (result) => {
-              console.log(result)
-            })
-            return console.log("Ethereum")
-            
-        }
-        else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Por favor, elija una network válida desde su billetera: Binance - Polygon - Ethereum',
-              })
-        }
+        web3.eth.sendTransaction(tx).then(res => {
+            console.log("res",res)
+        }).catch(err => {
+            console.log("err",err)
+        });
+
     }
 }
 

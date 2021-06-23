@@ -51,7 +51,8 @@ export const sendImage = async (id, data) => {
     const formData = new FormData();
     formData.append('img', data);
     formData.append('id', id)
-    const newData = await axios.put('http://localhost:8080/api/pay/buyInProcess', formData, {
+    const basepath = process.env.REACT_APP_API_URL
+    const newData = await axios.put(basepath+'pay/buyInProcess', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': 'Basic YWd1c3RpbjphZ3VpbGVyYQ=='
