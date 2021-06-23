@@ -6,6 +6,7 @@ import SendIcon from '@material-ui/icons/Send';
 import { useDispatch, useSelector } from "react-redux";
 import { loginCheck, transfer } from "../redux/actions/paymentActions";
 import { NotFound } from "./NotFound";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles({
     container:{
@@ -40,8 +41,8 @@ export const CryptoScreen = () => {
         dispatch(loginCheck())
     }
 
-    const handleOnPay = () =>{
-        dispatch(transfer(urlData.enrcyptedId,user, urlData.amount ))
+    const handleOnPay = (type) =>{
+        dispatch(transfer(urlData.enrcyptedId,user, urlData.amount, type))
     }
    
 
@@ -55,9 +56,23 @@ export const CryptoScreen = () => {
             disabled: user
         },
         {
-            name:'transferir',
-            title:'Transferir',
-            action: handleOnPay,
+            name:'usdt',
+            title:'Pagar con USDT',
+            action: ()=>{handleOnPay('usdt')},
+            icon: <SendIcon className={classes.logo}/>,
+            disabled: !user
+        },
+        {
+            name:'dai',
+            title:'Pagar con DAI',
+            action: ()=>{handleOnPay('dai')},
+            icon: <SendIcon className={classes.logo}/>,
+            disabled: !user
+        },
+        {
+            name:'usdc',
+            title:'Pagar con USDC',
+            action: ()=>{handleOnPay('usdc')},
             icon: <SendIcon className={classes.logo}/>,
             disabled: !user
         },

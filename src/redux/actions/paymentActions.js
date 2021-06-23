@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import { customAxios, sendImage } from '../../helpers/fetch';
 import Web3 from 'web3';
 import { collectData, startGetDataFromId } from './urlActions';
-import { abiUSDT, addressUSDT } from './abiaddress';
+import { abiBusd, abiDai, abiUsdc, abiUSDT, addressBusd, addressDai, addressUsdc, addressUSDT } from './abiaddress';
 
 
 export const loginCheck =  () =>{
@@ -35,18 +35,21 @@ const login = (account) =>({
 })
 
 
-export const transfer = (id, user, amount) =>{
+export const transfer = (id, user, amount, type) =>{
     return async (dispatch) =>{
-        const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-        const contractInstance = new web3.eth.Contract(abiUSDT, addressUSDT);
-        const tx = {
-            from: user[0],
-            to: contractInstance._address,
-            data: contractInstance.methods.transfer('0x2f318C334780961FB129D2a6c30D0763d9a5C970', web3.utils.toWei( amount.toString(), 'lovelace' ) ).encodeABI(),
-        }
-        web3.eth.sendTransaction(tx).then(res => {
-            const transactionNumber = res.transactionHash
-            customAxios('pay/buySuccess', {id, follow_number_crypto: transactionNumber}, 'put')
+        const isNetworkAvailable = await checkNetwork()
+        if(isNetworkAvailable){
+            const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+            const {abi, address} = getAbiAddress(type)
+            const contractInstance = new web3.eth.Contract(abi, address);
+            const tx = {
+                from: user[0],
+                to: contractInstance._address,
+                data: contractInstance.methods.transfer('0x2f318C334780961FB129D2a6c30D0763d9a5C970', web3.utils.toWei( amount.toString(), 'lovelace' ) ).encodeABI(),
+            }
+            web3.eth.sendTransaction(tx).then(res => {
+                const transactionNumber = res.transactionHash
+                customAxios('pay/buySuccess', {id, follow_number_crypto: transactionNumber}, 'put')
                 .then((dbRes) => {
                     if(dbRes==='Success!'){
                         console.log('Compra exitosa')
@@ -56,13 +59,56 @@ export const transfer = (id, user, amount) =>{
                     }
                 })
                 .catch(dbErr => console.log(dbErr))
-        }).catch(err => {
-            console.log("err",err)
-        });
-
+            }).catch(err => {
+                console.log("err",err)
+            });    
+        }
+        else{
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Por favor, elija una network válida desde su billetera: Binance - Polygon - Ethereum',
+              })
+        }
     }
 }
 
+const checkNetwork = async () =>{
+    const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+    const networks = {
+        binance: '0x38', // 56 in Hexa
+        polygon: '0x89', // 137 in Hexa,
+        ethereum: '0x1'
+    }
+    return chainId===networks.binance || chainId===networks.polygon || chainId==networks.ethereum
+}
+
+const getAbiAddress = (type) =>{
+    if(type==='usdt'){
+        return {
+            abi: abiUSDT,
+            address: addressUSDT
+        }
+    }
+    if(type==='dai'){
+        return {
+            abi: abiDai,
+            address: addressDai
+        }
+    }
+    if(type==='busd'){
+        return {
+            abi: abiBusd,
+            address: addressBusd
+        }
+    }
+    if(type==='usdc'){
+        return {
+            abi: abiUsdc,
+            address: addressUsdc
+        }
+    }
+}
 
 export const payWithBank = (data, id) =>{
     return async (dispatch) =>{

@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme=>({
         width: '70%',
         margin:'auto',
         position:'relative',
-        top:100,
+        top:50,
         display:'flex',
         [theme.breakpoints.down("sm")]: { 
             flexDirection:'column',
