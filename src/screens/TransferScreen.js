@@ -30,7 +30,7 @@ export const TransferScreen = () => {
         document.querySelector('#fileSelector').click()
     }
     const handleFileChange = (e) =>{
-        dispatch(payWithBank(e.target.files[0], urlData.encryptedId))
+        dispatch(payWithBank(e.target.files[0], urlData.enrcyptedId))
     }
     return (
         <>

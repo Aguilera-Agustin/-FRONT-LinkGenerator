@@ -16,7 +16,6 @@ export const startGetDataFromId = (id)=>{
         }
         const dataWithId = {...myData, enrcyptedId:customId}
         if(myData.mp_transfer===0){
-            console.log(dataWithId.id)
             const mpLink = await customAxios('pay/mercadopago', {amount: dataWithId.amount, id:dataWithId.id}, 'post')
             const finalData = {...dataWithId, mpLink}
             dispatch(collectData(finalData))
