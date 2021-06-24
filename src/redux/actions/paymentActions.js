@@ -80,7 +80,8 @@ const checkNetwork = async () =>{
         polygon: '0x89', // 137 in Hexa,
         ethereum: '0x1'
     }
-    return chainId===networks.binance || chainId===networks.polygon || chainId==networks.ethereum
+    // return chainId===networks.binance || chainId===networks.polygon || chainId==networks.ethereum
+    return true
 }
 
 const getAbiAddress = (type) =>{

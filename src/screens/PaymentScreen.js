@@ -49,6 +49,7 @@ export const PaymentScreen = ({title, children, button}) => {
     const classes = useStyles()
     const {amount} = useSelector(state => state.url.urlData)
     const {status} = useSelector(state => state.url.urlData)
+    const {enrcyptedId} = useSelector(state => state.url.urlData)
     return (
         <>
             {
@@ -76,7 +77,7 @@ export const PaymentScreen = ({title, children, button}) => {
                 )
                 :
                 (
-                    <Sucess id={2} status={status} />
+                    <Sucess id={enrcyptedId} status={status} />
                 )
             }
             
