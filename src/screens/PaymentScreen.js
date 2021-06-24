@@ -56,7 +56,7 @@ export const PaymentScreen = ({title, children, button}) => {
                     <Paper elevation={8} component='form' className={classes.formContainer} square>
                         <div className={classes.img} >
                             <Typography variant='button' style={{fontWeight:'lighter', margin:'0 1rem'}} >A pagar</Typography>
-                            <Typography variant='h3' style={{fontWeight:'lighter',}} >{`$${amount}`}</Typography>
+                            <Typography variant='h3' style={{fontWeight:'lighter',}} >{`U$D ${amount}`}</Typography>
                         </div>
                         <div style={{width:'100%'}}>
                             <Hidden smUp>
