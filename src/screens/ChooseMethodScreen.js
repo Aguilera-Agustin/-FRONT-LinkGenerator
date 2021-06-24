@@ -6,7 +6,7 @@ import queryString from 'query-string';
 import { startGetDataFromId } from '../redux/actions/urlActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { NotFound } from './NotFound';
-import { Sucess } from '../components/Sucess';
+import { getDateDiff } from '../helpers/getDateDiff';
 
 
 export const ChooseMethodScreen = () => {
@@ -25,7 +25,7 @@ export const ChooseMethodScreen = () => {
             loading?(<p>Cargando</p>):(
                 <>
                     {
-                        urlData?(                           
+                        (urlData && urlData.duration>=getDateDiff(urlData.createdAt) )?(                           
                                 <PaymentScreen title='Elije tu método de pago'>
                                     <ChoosePayment />
                                 </PaymentScreen>
