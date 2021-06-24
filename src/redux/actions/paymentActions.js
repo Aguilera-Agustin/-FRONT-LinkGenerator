@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import { customAxios, sendImage } from '../../helpers/fetch';
 import Web3 from 'web3';
 import { collectData, startGetDataFromId } from './urlActions';
-import { abiBusd, abiDai, abiUsdc, abiUSDT, addressBusd, addressDai, addressUsdc, addressUSDT } from './abiaddress';
+import { abiBusd, abiDai, abiUsdc, abiUSDT, addressBusd, addressDai, addressUsdc, addressUSDT } from '../../helpers/abiaddress';
 
 
 export const loginCheck =  () =>{
