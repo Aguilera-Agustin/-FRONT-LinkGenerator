@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import { customAxios, sendImage } from '../../helpers/fetch';
 import Web3 from 'web3';
 import { collectData, startGetDataFromId } from './urlActions';
-import { abiBusd, abiDai, abiUsdc, abiUSDT, addressBusd, addressDai, addressUsdc, addressUSDT } from '../../helpers/abiaddress';
+import { abiBusd, abiDai, abiUsdc, abiUSDT, addressDai, addressUSDT } from '../../helpers/abiaddress';
 
 
 export const loginCheck =  () =>{
@@ -52,7 +52,7 @@ export const transfer = (id, user, amount, type) =>{
                 customAxios('pay/buySuccess', {id, follow_number_crypto: transactionNumber}, 'put')
                 .then((dbRes) => {
                     if(dbRes==='Success!'){
-                        console.log('Compra exitosa')
+                        dispatch(startGetDataFromId(id))
                     }
                     else{
                         console.log('Compra rechazada')
@@ -95,19 +95,7 @@ const getAbiAddress = (type) =>{
             abi: abiDai,
             address: addressDai
         }
-    }
-    if(type==='busd'){
-        return {
-            abi: abiBusd,
-            address: addressBusd
-        }
-    }
-    if(type==='usdc'){
-        return {
-            abi: abiUsdc,
-            address: addressUsdc
-        }
-    }
+    }  
 }
 
 export const payWithBank = (data, id) =>{

@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import { getPdf } from '../helpers/fetch';
 import { makeStyles } from '@material-ui/core';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme=>({
     container:{
@@ -36,7 +37,7 @@ const useStyles = makeStyles(theme=>({
 }))
 
 
-export const Sucess = ({id}) => {
+export const Sucess = ({id, status}) => {
     const [loading, setLoading] = useState(false)
     const handleOnClick = async () =>{
          getPdf(id, setLoading)
@@ -44,10 +45,19 @@ export const Sucess = ({id}) => {
     const classes = useStyles()
     return (
         <Paper className={classes.container}>
-            
-            <Typography variant="h4" color="initial" align='center' style={{marginTop:'1rem'}}>
-                Pago Realizado <b style={{color:'lime'}}>Correctamente</b>!
-            </Typography>
+            {
+                status===2?(
+                    <Typography variant="h4" color="initial" align='center' style={{marginTop:'1rem'}}>
+                        Pago Realizado <b style={{color:'lime'}}>Correctamente</b>!
+                    </Typography>
+                )
+                :
+                (
+                    <Typography variant="h4" color="initial" align='center' style={{marginTop:'1rem'}}>
+                        Pago en <b style={{color:'orange'}}>Revisión</b>!
+                    </Typography>
+                )
+            }
             <Button disabled={loading} className={classes.button} variant="contained" color="primary" onClick={handleOnClick}>
                 Descargar comprobante
             </Button>  

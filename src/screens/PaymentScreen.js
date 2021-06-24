@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom";
 import {  Button, Divider, Hidden, makeStyles, Paper, Typography } from '@material-ui/core'
 import { useSelector } from "react-redux";
+import { Sucess } from "../components/Sucess";
 
 
 const useStyles = makeStyles(theme=>({
@@ -47,26 +48,38 @@ export const PaymentScreen = ({title, children, button}) => {
     const history = useHistory()
     const classes = useStyles()
     const {amount} = useSelector(state => state.url.urlData)
+    const {status} = useSelector(state => state.url.urlData)
     return (
-        <Paper elevation={8} component='form' className={classes.formContainer} square>
-            <div className={classes.img} >
-                <Typography variant='button' style={{fontWeight:'lighter', margin:'0 1rem'}} >A pagar</Typography>
-                <Typography variant='h3' style={{fontWeight:'lighter',}} >{`$${amount}`}</Typography>
-            </div>
-            <div style={{width:'100%'}}>
-                <Hidden smUp>
-                    <Divider/>
-                </Hidden>
-                {
-                    title && (
-                        <Typography variant='h6' style={{marginTop:'1rem', fontWeight:'lighter'}} align='center'>{title}</Typography>
-                    )
-                }
-                {children}
-            </div>
-            {button&&(
-                <Button className={classes.backButton} onClick={()=>history.goBack()}>Regresar</Button>
-            )}
-        </Paper>
+        <>
+            {
+                status===-1?(
+                    <Paper elevation={8} component='form' className={classes.formContainer} square>
+                        <div className={classes.img} >
+                            <Typography variant='button' style={{fontWeight:'lighter', margin:'0 1rem'}} >A pagar</Typography>
+                            <Typography variant='h3' style={{fontWeight:'lighter',}} >{`$${amount}`}</Typography>
+                        </div>
+                        <div style={{width:'100%'}}>
+                            <Hidden smUp>
+                                <Divider/>
+                            </Hidden>
+                            {
+                                title && (
+                                    <Typography variant='h6' style={{marginTop:'1rem', fontWeight:'lighter'}} align='center'>{title}</Typography>
+                                )
+                            }
+                            {children}
+                        </div>
+                        {button&&(
+                            <Button className={classes.backButton} onClick={()=>history.goBack()}>Regresar</Button>
+                        )}
+                    </Paper>
+                )
+                :
+                (
+                    <Sucess id={2} status={status} />
+                )
+            }
+            
+        </>
     )
 }

@@ -25,20 +25,10 @@ export const ChooseMethodScreen = () => {
             loading?(<p>Cargando</p>):(
                 <>
                     {
-                        urlData?(
-                            <>
-                            {
-                                urlData.status===1?(
-                                    <Sucess id={urlData.enrcyptedId}/>         
-                                )
-                                :
-                                (
-                                    <PaymentScreen title='Elije tu método de pago'>
-                                        <ChoosePayment />
-                                    </PaymentScreen>
-                                )
-                            }
-                            </>
+                        urlData?(                           
+                                <PaymentScreen title='Elije tu método de pago'>
+                                    <ChoosePayment />
+                                </PaymentScreen>
                         )
                         :
                         (

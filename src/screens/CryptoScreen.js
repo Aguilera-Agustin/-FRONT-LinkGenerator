@@ -68,14 +68,8 @@ export const CryptoScreen = () => {
             action: ()=>{handleOnPay('dai')},
             icon: <SendIcon className={classes.logo}/>,
             disabled: !user
-        },
-        {
-            name:'usdc',
-            title:'Pagar con USDC',
-            action: ()=>{handleOnPay('usdc')},
-            icon: <SendIcon className={classes.logo}/>,
-            disabled: !user
-        },
+        }
+        
        
     
     ]
