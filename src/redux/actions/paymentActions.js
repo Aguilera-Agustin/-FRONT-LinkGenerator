@@ -40,12 +40,12 @@ export const transfer = (id, user, amount, type) =>{
         const isNetworkAvailable = await checkNetwork()
         if(isNetworkAvailable){
             const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-            const {abi, address} = getAbiAddress(type)
+            const {abi, address, moneyType} = getAbiAddress(type)
             const contractInstance = new web3.eth.Contract(abi, address);
             const tx = {
                 from: user[0],
                 to: contractInstance._address,
-                data: contractInstance.methods.transfer('0x2f318C334780961FB129D2a6c30D0763d9a5C970', web3.utils.toWei( amount.toString(), 'lovelace' ) ).encodeABI(),
+                data: contractInstance.methods.transfer('0x2f318C334780961FB129D2a6c30D0763d9a5C970', web3.utils.toWei( amount.toString(), moneyType ) ).encodeABI(),
             }
             web3.eth.sendTransaction(tx).then(res => {
                 const transactionNumber = res.transactionHash
@@ -88,13 +88,15 @@ const getAbiAddress = (type) =>{
     if(type==='usdt'){
         return {
             abi: abiUSDT,
-            address: addressUSDT
+            address: addressUSDT,
+            moneyType: 'lovelace'
         }
     }
     if(type==='dai'){
         return {
             abi: abiDai,
-            address: addressDai
+            address: addressDai,
+            moneyType: 'ether'
         }
     }  
 }
