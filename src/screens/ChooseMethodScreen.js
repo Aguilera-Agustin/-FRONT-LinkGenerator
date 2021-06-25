@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
-import { PaymentScreen } from './PaymentScreen'
-import { ChoosePayment } from '../components/ChoosePayment'
+import  { useEffect } from 'react'
+
 import { useLocation } from 'react-router'
 import queryString from 'query-string';
-import { startGetDataFromId } from '../redux/actions/urlActions';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { PaymentScreen } from './PaymentScreen'
+import { ChoosePayment } from '../components/ChoosePayment'
+import { startGetDataFromId } from '../redux/actions/urlActions';
 import { NotFound } from './NotFound';
 import { getDateDiff } from '../helpers/getDateDiff';
 
@@ -18,7 +20,7 @@ export const ChooseMethodScreen = () => {
         if(!urlData){
             dispatch(startGetDataFromId(id))
         }
-    }, [dispatch])
+    }, [dispatch, id, urlData])
     return (
         <>
         {

@@ -6,7 +6,6 @@ import Paper from '@material-ui/core/Paper';
 import { getPdf } from '../helpers/fetch';
 import { makeStyles } from '@material-ui/core';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme=>({
     container:{

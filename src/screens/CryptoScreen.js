@@ -1,12 +1,13 @@
+import { useDispatch, useSelector } from "react-redux";
+
 import { makeStyles } from "@material-ui/core"
-import { Method } from "../components/Method"
-import { PaymentScreen } from "./PaymentScreen"
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import SendIcon from '@material-ui/icons/Send';
-import { useDispatch, useSelector } from "react-redux";
+
+import { PaymentScreen } from "./PaymentScreen"
 import { loginCheck, transfer } from "../redux/actions/paymentActions";
 import { NotFound } from "./NotFound";
-import Swal from "sweetalert2";
+import { Method } from "../components/Method"
 
 const useStyles = makeStyles({
     container:{

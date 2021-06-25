@@ -1,9 +1,11 @@
-import { PaymentScreen } from './PaymentScreen'
+import { useDispatch, useSelector } from 'react-redux'
+
 import Typography from '@material-ui/core/Typography'
 import { Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+
+import { PaymentScreen } from './PaymentScreen'
 import { payWithBank } from '../redux/actions/paymentActions'
-import { useDispatch, useSelector } from 'react-redux'
 import { firstData, secondData } from '../helpers/transferData'
 import { NotFound } from './NotFound'
 

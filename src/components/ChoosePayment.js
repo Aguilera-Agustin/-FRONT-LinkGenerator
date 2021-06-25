@@ -1,11 +1,11 @@
+import { useSelector } from "react-redux";
+
 import { makeStyles } from "@material-ui/core"
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
 import { Method } from "./Method"
-import { useSelector } from "react-redux";
-import Swal from 'sweetalert2'
 
 
 
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 export const ChoosePayment = () => {
 
     const classes = useStyles()
-    const {mp_transfer, crypto_transfer, bank_transfer, mpLink, enrcyptedId} = useSelector(state => state.url.urlData)
+    const {mp_transfer, crypto_transfer, bank_transfer, mpLink} = useSelector(state => state.url.urlData)
     const mercadoPagoOnClick = () =>{
         window.location.assign(mpLink);
     }

@@ -1,5 +1,6 @@
 import {createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
+
 import paymentReducer from '../reducers/paymentReducer';
 import urlReducer from '../reducers/urlReducer';
 

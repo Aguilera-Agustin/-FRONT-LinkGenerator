@@ -4,6 +4,7 @@ import {
     Route,
     Switch
   } from "react-router-dom";
+  
 import { ChooseMethodScreen } from '../screens/ChooseMethodScreen';
 import { CryptoScreen } from '../screens/CryptoScreen';
 import { NotFound } from '../screens/NotFound';
