@@ -4,7 +4,7 @@ import { useLocation } from 'react-router'
 import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { PaymentScreen } from './PaymentScreen'
+import { PaymentContainer }from '../components/PaymentContainer'
 import { ChoosePayment } from '../components/ChoosePayment'
 import { startGetDataFromId } from '../redux/actions/urlActions';
 import { NotFound } from './NotFound';
@@ -28,9 +28,9 @@ export const ChooseMethodScreen = () => {
                 <>
                     {
                         (urlData && urlData.duration>=getDateDiff(urlData.createdAt) )?(                           
-                                <PaymentScreen title='Elije tu método de pago'>
+                                <PaymentContainer title='Elije tu método de pago'>
                                     <ChoosePayment />
-                                </PaymentScreen>
+                                </PaymentContainer>
                         )
                         :
                         (

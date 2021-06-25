@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme=>({
 }))
 
 
-export const Sucess = ({id, status}) => {
+export const SucessScreen = ({id, status}) => {
     const [loading, setLoading] = useState(false)
     const handleOnClick = async () =>{
          getPdf(id, setLoading)

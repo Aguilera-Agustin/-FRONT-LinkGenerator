@@ -4,7 +4,8 @@ import { makeStyles } from "@material-ui/core"
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import SendIcon from '@material-ui/icons/Send';
 
-import { PaymentScreen } from "./PaymentScreen"
+import { PaymentContainer }from '../components/PaymentContainer'
+
 import { loginCheck, transfer } from "../redux/actions/paymentActions";
 import { NotFound } from "./NotFound";
 import { Method } from "../components/Method"
@@ -80,7 +81,7 @@ export const CryptoScreen = () => {
         <>
             {
                 urlData?(
-                    <PaymentScreen button>
+                    <PaymentContainer button>
                     {
                         urlData.crypto_transfer!==1&&(
     
@@ -91,7 +92,7 @@ export const CryptoScreen = () => {
                             </div>
                         )
                     }
-                    </PaymentScreen>
+                    </PaymentContainer>
                 )
                 :
                 (

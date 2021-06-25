@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import {  Button, Divider, Hidden, makeStyles, Paper, Typography } from '@material-ui/core'
 
-import { Sucess } from "../components/Sucess";
+import { SucessScreen } from "../screens/SucessScreen";
 
 
 const useStyles = makeStyles(theme=>({
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme=>({
 
 
 
-export const PaymentScreen = ({title, children, button}) => {
+export const PaymentContainer = ({title, children, button}) => {
     const history = useHistory()
     const classes = useStyles()
     const {amount} = useSelector(state => state.url.urlData)
@@ -79,7 +79,7 @@ export const PaymentScreen = ({title, children, button}) => {
                 )
                 :
                 (
-                    <Sucess id={enrcyptedId} status={status} />
+                    <SucessScreen id={enrcyptedId} status={status} />
                 )
             }
             

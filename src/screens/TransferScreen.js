@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import { Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
-import { PaymentScreen } from './PaymentScreen'
+import { PaymentContainer }from '../components/PaymentContainer'
 import { payWithBank } from '../redux/actions/paymentActions'
 import { firstData, secondData } from '../helpers/transferData'
 import { NotFound } from './NotFound'
@@ -38,7 +38,7 @@ export const TransferScreen = () => {
         <>
         {
             urlData?(
-                <PaymentScreen button>
+                <PaymentContainer button>
                     <Typography variant="h5" align='center' color="initial" style={{marginTop:'1rem'}}>Datos</Typography>
                     <Typography className={classes.eachText} >Tipo : {urlData.bankType===0?(firstData.type):(secondData.type)}</Typography>
                     <Typography className={classes.eachText} >CBU : {urlData.bankType===0?(firstData.cbu):(secondData.cbu)}</Typography>
@@ -46,7 +46,7 @@ export const TransferScreen = () => {
                     <Typography className={classes.eachText} >Titular : {urlData.bankType===0?(firstData.owner):(secondData.owner)}</Typography>
                     <input type='file' style={{display:'none'}} onChange={handleFileChange} id='fileSelector' name='file'/>
                     <Button onClick={handleOnClick} className={classes.button} variant='contained' color='primary'>Cargar comprobante de pago</Button>
-                </PaymentScreen>
+                </PaymentContainer>
             ):
             (
                 <NotFound/>
