@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme=>({
 
         },
     },
-    img:{
+    amount:{
         height:'26rem',
         width:'50%',
         display:'flex',
@@ -33,7 +33,9 @@ const useStyles = makeStyles(theme=>({
         [theme.breakpoints.down("sm")]: { 
             alignItems:'center',
             justifyContent:'center',
-            height: '12rem'
+            height: '12rem',
+            width:'100%',
+
         },
     },
     backButton:{
@@ -66,7 +68,7 @@ export const PaymentContainer = ({title, children, button, expiredInfo}) => {
             {
                 status===-1?(
                     <Paper elevation={8} component='form' className={classes.formContainer} square>
-                        <div className={classes.img} >
+                        <div className={classes.amount} >
                             <Typography variant='button' style={{fontWeight:'lighter', margin:'0 1rem'}} >A pagar</Typography>
                             <Typography variant='h3' style={{fontWeight:'lighter',}} >{`U$D ${amount}`}</Typography>
                             <Typography variant='h6' color='textSecondary' style={{fontWeight:'lighter',}} >{`$ARS ${ars}`}</Typography>
