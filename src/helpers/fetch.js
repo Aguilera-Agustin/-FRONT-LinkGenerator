@@ -49,7 +49,10 @@ export const getPdf = (id, setLoading) => {
 
 export const sendImage = async (id, data) => {
     const formData = new FormData();
-    formData.append('img', data);
+    for (let index = 0; index < data.length; index++) {
+        formData.append('img', data[index]);
+        
+    }
     formData.append('id', id)
     const basepath = process.env.REACT_APP_API_URL
     const newData = await axios.put(basepath+'pay/buyInProcess', formData, {
