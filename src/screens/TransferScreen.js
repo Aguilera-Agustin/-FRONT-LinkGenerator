@@ -38,7 +38,8 @@ const useStyles = makeStyles((theme)=>({
         marginRight:'1rem'
     },
     imgContainer:{
-        display:'flex'
+        display:'flex',
+        flexWrap:'wrap'
     },
     btnDelete:{
         height:'1.3rem',
