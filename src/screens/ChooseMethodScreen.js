@@ -11,6 +11,7 @@ import { NotFound } from './NotFound';
 import { getDateDiff } from '../helpers/getDateDiff';
 import { LinkExpired } from './LinkExpired';
 import { Loading } from '../components/Loading';
+import moment from 'moment';
 
 
 export const ChooseMethodScreen = () => {
@@ -32,7 +33,7 @@ export const ChooseMethodScreen = () => {
                         urlData?(                 
                                 
                                     (urlData.duration>=getDateDiff(urlData.createdAt))?(
-                                        <PaymentContainer title='Elije tu método de pago'>
+                                        <PaymentContainer title='Elije tu método de pago' expiredInfo={moment(urlData.createdAt).add(urlData.duration, 'h').format('YYYY-MM-DD hh:mm a')}>
                                             <ChoosePayment />
                                         </PaymentContainer>
                                     )

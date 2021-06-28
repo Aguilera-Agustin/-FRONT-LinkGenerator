@@ -40,13 +40,21 @@ const useStyles = makeStyles(theme=>({
         position:'absolute',
         margin:'auto',
         bottom:0
+    },
+    expiredInfo:{
+        position:'absolute',
+        margin:'auto',
+        bottom:4,
+        right: 0,
+        left: 0,
+        fontSize: '0.8rem'
     }
    
 }))
 
 
 
-export const PaymentContainer = ({title, children, button}) => {
+export const PaymentContainer = ({title, children, button, expiredInfo}) => {
     const history = useHistory()
     const classes = useStyles()
     const {amount} = useSelector(state => state.url.urlData)
@@ -72,9 +80,16 @@ export const PaymentContainer = ({title, children, button}) => {
                             }
                             {children}
                         </div>
-                        {button&&(
+                        {button?(
                             <Button className={classes.backButton} onClick={()=>history.goBack()}>Regresar</Button>
-                        )}
+                        ):
+                        (
+
+                        <Typography align='center' color='textSecondary' className={classes.expiredInfo}>
+                            {`Link expira el : ${expiredInfo}`} 
+                        </Typography>
+                        )
+                        }
                     </Paper>
                 )
                 :
