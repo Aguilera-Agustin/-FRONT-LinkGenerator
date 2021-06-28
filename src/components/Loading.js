@@ -1,6 +1,5 @@
 import { CircularProgress } from "@material-ui/core"
-import { makeStyles, Paper, Typography } from "@material-ui/core"
-import { orange } from "@material-ui/core/colors"
+import { makeStyles, Typography } from "@material-ui/core"
 
 const useStyles = makeStyles({
     pageContainer:{
