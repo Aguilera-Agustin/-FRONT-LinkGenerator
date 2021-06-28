@@ -28,7 +28,7 @@ export const LinkExpired = () => {
     return (
         <div>
             <Paper className={classes.paper} elevation={9}>
-                <Typography variant='h1' align='center' className={classes.mainText}>
+                <Typography variant='h2' align='center' className={classes.mainText}>
                     Link <span className={classes.span}>Expirado</span>
                 </Typography>
                 <Typography color='textSecondary'>El link al que usted está queriendo ingresar, ya ha expirado.</Typography>
