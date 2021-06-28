@@ -100,9 +100,11 @@ const getAbiAddress = (type) =>{
     }  
 }
 
-export const payWithBank = (data, id) =>{
+export const payWithBank = (data, id, setLoading) =>{
     return async (dispatch) =>{
+        setLoading(true)
         const res = await sendImage(id, data)
+        setLoading(false)
                 if(res.status===200){
                     Swal.fire({
                         icon: 'success',

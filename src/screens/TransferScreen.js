@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import Typography from '@material-ui/core/Typography'
 import { Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { CircularProgress } from "@material-ui/core"
+import Swal from 'sweetalert2'
+
 
 import { PaymentContainer }from '../components/PaymentContainer'
 import { payWithBank } from '../redux/actions/paymentActions'
@@ -50,6 +53,12 @@ const useStyles = makeStyles((theme)=>({
         [theme.breakpoints.down("sm")]: { 
             flexDirection:'column'
         }
+    },
+    spinner:{
+        width: '100%',
+        display:'flex',
+        justifyContent:'center',
+        margin: '1rem 0'
     }
 }))
 export const TransferScreen = () => {
@@ -57,6 +66,7 @@ export const TransferScreen = () => {
     const dispatch = useDispatch()
     const [images, setImages] = useState([])
     const [files, setFiles] = useState([])
+    const [loading, setLoading] = useState(false)
     const urlData = useSelector(state=>state.url.urlData)
     const handleOnClick = () =>{
         document.querySelector('#fileSelector').click()
@@ -82,7 +92,16 @@ export const TransferScreen = () => {
     }
     
     const handleOnSend = () => {
-        dispatch(payWithBank(files, urlData.enrcyptedId))
+        Swal.fire({
+            title: '¿Estas seguro de enviar estas imagenes? Este proceso no podrá ser revertido',
+            showCancelButton: true,
+            confirmButtonText: `Si`,
+            denyButtonText: `Cancelar`,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              dispatch(payWithBank(files, urlData.enrcyptedId, setLoading))
+            } 
+          })
 
     }
 
@@ -97,15 +116,19 @@ export const TransferScreen = () => {
                     <Typography className={classes.eachText} >Alias : {urlData.bankType===0?(firstData.alias):(secondData.alias)}</Typography>
                     <Typography className={classes.eachText} >Titular : {urlData.bankType===0?(firstData.owner):(secondData.owner)}</Typography>
                     <input type='file' multiple style={{display:'none'}} onChange={handleFileChange} id='fileSelector' name='file'/>
+                    {loading&&(
+                        <div className={classes.spinner} >
+                            <CircularProgress />
+                        </div>
+                    )}
                     <div className={classes.buttonContainer}>
-                        <Button onClick={handleOnClick} className={classes.button} variant='contained' color='primary'>Cargar comprobante de pago</Button>
-                        <Button onClick={handleOnClick} disabled={images.length===0} className={classes.button} variant='contained' onClick={handleOnSend} color='primary'>Enviar</Button>
+                        <Button onClick={handleOnClick} className={classes.button} disabled={loading} variant='contained' color='primary'>Cargar comprobante de pago</Button>
+                        <Button onClick={handleOnClick} disabled={images.length===0 || loading} className={classes.button} variant='contained' onClick={handleOnSend} color='primary'>Enviar</Button>
                     </div>
                     {
                         images&&(
                             <div className={classes.imgContainer}>
                                 {
-                                    
                                     images.map((eachImage)=>(
                                         <div key={eachImage} className={classes.eachImgContainer}>
                                             <img src={eachImage} className={classes.eachImg}/>
