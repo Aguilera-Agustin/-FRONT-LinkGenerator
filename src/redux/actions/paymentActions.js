@@ -37,7 +37,8 @@ const login = (account) =>({
 
 export const transfer = (id, user, amount, type) =>{
     return async (dispatch) =>{
-        const isNetworkAvailable = await checkNetwork()
+        const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        const isNetworkAvailable = await checkNetwork(chainId)
         if(isNetworkAvailable){
             const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
             const {abi, address, moneyType} = getAbiAddress(type)
@@ -49,7 +50,7 @@ export const transfer = (id, user, amount, type) =>{
             }
             web3.eth.sendTransaction(tx).then(res => {
                 const transactionNumber = res.transactionHash
-                customAxios('pay/buySuccess', {id, follow_number_crypto: transactionNumber}, 'put')
+                customAxios('pay/buySuccess', {id, follow_number_crypto: transactionNumber, chain_id: chainId}, 'put')
                 .then((dbRes) => {
                     if(dbRes==='Success!'){
                         dispatch(startGetDataFromId(id))
@@ -73,8 +74,8 @@ export const transfer = (id, user, amount, type) =>{
     }
 }
 
-const checkNetwork = async () =>{
-    const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+const checkNetwork = async (chainId) =>{
+    
     const networks = {
         binance: '0x38', // 56 in Hexa
         polygon: '0x89', // 137 in Hexa,
