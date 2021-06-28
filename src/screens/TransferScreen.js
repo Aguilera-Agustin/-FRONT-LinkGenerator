@@ -68,6 +68,13 @@ export const TransferScreen = () => {
         setImages([...images,...newArray])
         //dispatch(payWithBank(e.target.files[0], urlData.enrcyptedId))
     }
+
+    const handleOnDelete = (file) => {
+        const newArray = images.filter(eachFile=>(eachFile!==file))
+        setImages(newArray)
+    }
+
+
     return (
         <>
         {
@@ -88,7 +95,7 @@ export const TransferScreen = () => {
                                     images.map((eachImage)=>(
                                         <div key={eachImage} className={classes.eachImgContainer}>
                                             <img src={eachImage} className={classes.eachImg}/>
-                                            <Button className={classes.btnDelete} color='primary' variant='contained' size='small'>BORRAR</Button>
+                                            <Button onClick={()=>handleOnDelete(eachImage)} className={classes.btnDelete} color='primary' variant='contained' size='small'>BORRAR</Button>
                                         </div>
                                     ))
                                 }
