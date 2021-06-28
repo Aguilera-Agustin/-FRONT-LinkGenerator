@@ -9,6 +9,8 @@ import { ChoosePayment } from '../components/ChoosePayment'
 import { startGetDataFromId } from '../redux/actions/urlActions';
 import { NotFound } from './NotFound';
 import { getDateDiff } from '../helpers/getDateDiff';
+import { LinkExpired } from './LinkExpired';
+import { Loading } from '../components/Loading';
 
 
 export const ChooseMethodScreen = () => {
@@ -24,13 +26,21 @@ export const ChooseMethodScreen = () => {
     return (
         <>
         {
-            loading?(<p>Cargando</p>):(
+            loading?(<Loading/>):(
                 <>
                     {
-                        (urlData && urlData.duration>=getDateDiff(urlData.createdAt) )?(                           
-                                <PaymentContainer title='Elije tu método de pago'>
-                                    <ChoosePayment />
-                                </PaymentContainer>
+                        urlData?(                 
+                                
+                                    (urlData.duration>=getDateDiff(urlData.createdAt))?(
+                                        <PaymentContainer title='Elije tu método de pago'>
+                                            <ChoosePayment />
+                                        </PaymentContainer>
+                                    )
+                                    :
+                                    (
+                                        <LinkExpired/>
+                                    )
+                                          
                         )
                         :
                         (
