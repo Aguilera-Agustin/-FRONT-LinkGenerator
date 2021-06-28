@@ -58,6 +58,7 @@ export const PaymentContainer = ({title, children, button, expiredInfo}) => {
     const history = useHistory()
     const classes = useStyles()
     const {amount} = useSelector(state => state.url.urlData)
+    const {ars} = useSelector(state => state.url.urlData)
     const {status} = useSelector(state => state.url.urlData)
     const {enrcyptedId} = useSelector(state => state.url.urlData)
     return (
@@ -68,6 +69,7 @@ export const PaymentContainer = ({title, children, button, expiredInfo}) => {
                         <div className={classes.img} >
                             <Typography variant='button' style={{fontWeight:'lighter', margin:'0 1rem'}} >A pagar</Typography>
                             <Typography variant='h3' style={{fontWeight:'lighter',}} >{`U$D ${amount}`}</Typography>
+                            <Typography variant='h6' color='textSecondary' style={{fontWeight:'lighter',}} >{`$ARS ${ars}`}</Typography>
                         </div>
                         <div style={{width:'100%'}}>
                             <Hidden smUp>
