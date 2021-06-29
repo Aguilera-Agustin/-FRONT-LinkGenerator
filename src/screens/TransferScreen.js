@@ -72,23 +72,25 @@ export const TransferScreen = () => {
         document.querySelector('#fileSelector').click()
     }
     const handleFileChange = (e) =>{
-        
         if(e.target.files.length === 0 ){
             return null
         }
-        const files = Array.from(e.target.files)
+        const newFiles = Array.from(e.target.files)
         let newArray = []
-        files.map(element => {
+        newFiles.forEach(element => {
             newArray.push(URL.createObjectURL(element))
         })
-        setFiles(e.target.files)
+        setFiles([...files, ...newFiles])
         setImages([...images,...newArray])
     }
     
     
-    const handleOnDelete = (file) => {
-        const newArray = images.filter(eachFile=>(eachFile!==file))
+    const handleOnDelete = (img,index) => {
+        const newArray = images.filter(eachImg=>(eachImg!==img))
+        const myFiles = Array.from(files)
+        myFiles.splice(index,1)
         setImages(newArray)
+        setFiles(myFiles)
     }
     
     const handleOnSend = () => {
@@ -99,7 +101,7 @@ export const TransferScreen = () => {
             denyButtonText: `Cancelar`,
           }).then((result) => {
             if (result.isConfirmed) {
-              dispatch(payWithBank(files, urlData.enrcyptedId, setLoading))
+                dispatch(payWithBank(files, urlData.enrcyptedId, setLoading))
             } 
           })
 
@@ -129,10 +131,10 @@ export const TransferScreen = () => {
                         images&&(
                             <div className={classes.imgContainer}>
                                 {
-                                    images.map((eachImage)=>(
+                                    images.map((eachImage, index)=>(
                                         <div key={eachImage} className={classes.eachImgContainer}>
                                             <img src={eachImage} className={classes.eachImg}/>
-                                            <Button onClick={()=>handleOnDelete(eachImage)} className={classes.btnDelete} color='primary' variant='contained' size='small'>BORRAR</Button>
+                                            <Button onClick={()=>handleOnDelete(eachImage, index)} className={classes.btnDelete} color='primary' variant='contained' size='small'>BORRAR</Button>
                                         </div>
                                     ))
                                 }

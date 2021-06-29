@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import {  Button, Divider, Hidden, makeStyles, Paper, Typography } from '@material-ui/core'
 
 import { SucessScreen } from "../screens/SucessScreen";
-
+import { LinkExpired } from "../screens/LinkExpired";
 
 const useStyles = makeStyles(theme=>({
     formContainer:{
@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme=>({
 
 
 
-export const PaymentContainer = ({title, children, button, expiredInfo}) => {
+export const PaymentContainer = ({title, children, button, expiredInfo, available=true}) => {
     const history = useHistory()
     const classes = useStyles()
     const {amount} = useSelector(state => state.url.urlData)
@@ -67,34 +67,42 @@ export const PaymentContainer = ({title, children, button, expiredInfo}) => {
         <>
             {
                 status===-1?(
-                    <Paper elevation={8} component='form' className={classes.formContainer} square>
-                        <div className={classes.amount} >
-                            <Typography variant='button' style={{fontWeight:'lighter', margin:'0 1rem'}} >A pagar</Typography>
-                            <Typography variant='h3' style={{fontWeight:'lighter',}} >{`U$D ${amount}`}</Typography>
-                            <Typography variant='h6' color='textSecondary' style={{fontWeight:'lighter',}} >{`$ARS ${ars}`}</Typography>
-                        </div>
-                        <div style={{width:'100%'}}>
-                            <Hidden smUp>
-                                <Divider/>
-                            </Hidden>
-                            {
-                                title && (
-                                    <Typography variant='h6' style={{marginTop:'1rem', fontWeight:'lighter'}} align='center'>{title}</Typography>
+                        <>
+                            {available?(
+                                <Paper elevation={8} component='form' className={classes.formContainer} square>
+                                <div className={classes.amount} >
+                                    <Typography variant='button' style={{fontWeight:'lighter', margin:'0 1rem'}} >A pagar</Typography>
+                                    <Typography variant='h3' style={{fontWeight:'lighter',}} >{`U$D ${amount}`}</Typography>
+                                    <Typography variant='h6' color='textSecondary' style={{fontWeight:'lighter',}} >{`$ARS ${ars}`}</Typography>
+                                </div>
+                                <div style={{width:'100%'}}>
+                                    <Hidden smUp>
+                                        <Divider/>
+                                    </Hidden>
+                                    {
+                                        title && (
+                                            <Typography variant='h6' style={{marginTop:'1rem', fontWeight:'lighter'}} align='center'>{title}</Typography>
+                                        )
+                                    }
+                                    {children}
+                                </div>
+                                {button?(
+                                    <Button className={classes.backButton} onClick={()=>history.goBack()}>Regresar</Button>
+                                ):
+                                (
+        
+                                <Typography align='center' color='textSecondary' className={classes.expiredInfo}>
+                                    {`Link expira el : ${expiredInfo}`} 
+                                </Typography>
                                 )
-                            }
-                            {children}
-                        </div>
-                        {button?(
-                            <Button className={classes.backButton} onClick={()=>history.goBack()}>Regresar</Button>
-                        ):
-                        (
-
-                        <Typography align='center' color='textSecondary' className={classes.expiredInfo}>
-                            {`Link expira el : ${expiredInfo}`} 
-                        </Typography>
-                        )
-                        }
-                    </Paper>
+                                }
+                            </Paper>
+                            ):
+                            (
+                                <LinkExpired/>
+                            )}
+                        </>
+                    
                 )
                 :
                 (

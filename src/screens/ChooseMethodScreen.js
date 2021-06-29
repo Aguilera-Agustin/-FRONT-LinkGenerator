@@ -31,17 +31,9 @@ export const ChooseMethodScreen = () => {
                 <>
                     {
                         urlData?(                 
-                                
-                                    (isDateAvailable(urlData.createdAt, urlData.duration))?(
-                                        <PaymentContainer title='Elije tu método de pago' expiredInfo={moment(urlData.createdAt).add(urlData.duration, 'h').format('YYYY-MM-DD hh:mm a')}>
-                                            <ChoosePayment />
-                                        </PaymentContainer>
-                                    )
-                                    :
-                                    (
-                                        <LinkExpired/>
-                                    )
-                                          
+                                <PaymentContainer title='Elije tu método de pago' available={isDateAvailable(urlData.createdAt, urlData.duration)} expiredInfo={moment(urlData.createdAt).add(urlData.duration, 'h').format('YYYY-MM-DD hh:mm a')}>
+                                    <ChoosePayment />
+                                </PaymentContainer>
                         )
                         :
                         (
