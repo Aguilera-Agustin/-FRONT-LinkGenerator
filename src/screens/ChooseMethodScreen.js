@@ -9,7 +9,6 @@ import { ChoosePayment } from '../components/ChoosePayment'
 import { startGetDataFromId } from '../redux/actions/urlActions';
 import { NotFound } from './NotFound';
 import { isDateAvailable } from '../helpers/getDateDiff';
-import { LinkExpired } from './LinkExpired';
 import { Loading } from '../components/Loading';
 import moment from 'moment';
 

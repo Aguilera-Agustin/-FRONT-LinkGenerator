@@ -125,15 +125,15 @@ export const TransferScreen = () => {
                     )}
                     <div className={classes.buttonContainer}>
                         <Button onClick={handleOnClick} className={classes.button} disabled={loading} variant='contained' color='primary'>Cargar comprobante de pago</Button>
-                        <Button onClick={handleOnClick} disabled={images.length===0 || loading} className={classes.button} variant='contained' onClick={handleOnSend} color='primary'>Enviar</Button>
+                        <Button disabled={images.length===0 || loading} className={classes.button} variant='contained' onClick={handleOnSend} color='primary'>Enviar</Button>
                     </div>
                     {
                         images&&(
                             <div className={classes.imgContainer}>
                                 {
                                     images.map((eachImage, index)=>(
-                                        <div key={eachImage} className={classes.eachImgContainer}>
-                                            <img src={eachImage} className={classes.eachImg}/>
+                                        <div key={eachImage+index} className={classes.eachImgContainer}>
+                                            <img src={eachImage} alt={index} className={classes.eachImg}/>
                                             <Button onClick={()=>handleOnDelete(eachImage, index)} className={classes.btnDelete} color='primary' variant='contained' size='small'>BORRAR</Button>
                                         </div>
                                     ))
