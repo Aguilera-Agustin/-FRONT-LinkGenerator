@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core"
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import SendIcon from '@material-ui/icons/Send';
 
 import { Method } from "./Method"
 
@@ -52,7 +53,7 @@ export const ChoosePayment = () => {
         },
         {
             name:'criptomoneda',
-            title:'Criptomoneda',
+            title:'Billetera Criptomoneda',
             icon: <AccountBalanceWalletIcon className={classes.logo}/>,
             link:`/crypto`,
             disabled:crypto_transfer===-1
@@ -62,6 +63,13 @@ export const ChoosePayment = () => {
             title:'Transferencia Bancaria',
             icon: <AccountBalanceIcon className={classes.logo}/>,
             link:`/bank_transfer`,
+            disabled:bank_transfer===-1
+        },
+        {
+            name:'binance',
+            title:'Transferencia Criptomonedas',
+            icon: <SendIcon className={classes.logo}/>,
+            link:`/binance_transfer`,
             disabled:bank_transfer===-1
         },
     

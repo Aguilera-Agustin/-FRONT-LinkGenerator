@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme=>({
         position:'relative',
         top:50,
         display:'flex',
+        paddingBottom: '1rem',
         [theme.breakpoints.down("sm")]: { 
             flexDirection:'column',
             width:'90%',
