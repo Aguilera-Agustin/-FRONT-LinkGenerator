@@ -3,8 +3,11 @@ import { makeStyles } from "@material-ui/core"
 import { PaymentContainer } from "../components/PaymentContainer"
 import TextField from '@material-ui/core/TextField';
 import { Button } from "@material-ui/core";
+import { FormControl } from '@material-ui/core';
+import { NotFound } from "./NotFound";
+import { useSelector } from "react-redux";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme)=>({
     container:{
         width:'100%',
         display: 'flex',
@@ -18,7 +21,10 @@ const useStyles = makeStyles({
         background: 'white',
         margin: '0 auto',
         marginTop:'2rem',
-        marginBottom:'0.5rem'
+        marginBottom:'0.5rem',
+        [theme.breakpoints.down("sm")]: { 
+            width: '80%'
+        }
     },
     form:{
         display:'flex',
@@ -33,20 +39,32 @@ const useStyles = makeStyles({
         width:'30%',
         marginTop:'1rem'
     }
-})
+}))
 
 export const CryptoTransferScreen = () => {
     const classes = useStyles()
+    const {urlData} = useSelector(state => state.url)
+
     return (
-        <PaymentContainer button>
-            <div className={classes.container}>
-                <img className={classes.img} src='/qr.png'/>
-                <Typography variant='body2'>agustin.aguilera424@gmail.com</Typography>
-            </div>
-            <form className={classes.form}>
-                <TextField  className={classes.textField} id="follow_number" label="Número de seguimiento" variant="outlined" />
-                <Button className={classes.button} variant='contained' color='primary'>Enviar</Button>
-            </form>
-        </PaymentContainer>
+        <>
+        {
+            urlData?(
+                <PaymentContainer button>
+                    <div className={classes.container}>
+                        <img className={classes.img} src='/qr.png' alt='qr_code'/> 
+                        <Typography variant='body2'>agustin.aguilera424@gmail.com</Typography>
+                    </div>
+                    <FormControl className={classes.form}>
+                        <TextField  className={classes.textField} id="follow_number" label="Número de seguimiento" variant="outlined" />
+                        <Button className={classes.button} variant='contained' color='primary'>Enviar</Button>
+                    </FormControl>
+                </PaymentContainer>
+            )
+            :
+            (
+                <NotFound/>
+            )
+        }
+        </>
     )
 }
