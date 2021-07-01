@@ -5,6 +5,7 @@ import {  Button, Divider, Hidden, makeStyles, Paper, Typography } from '@materi
 
 import { SucessScreen } from "../screens/SucessScreen";
 import { LinkExpired } from "../screens/LinkExpired";
+import { ChangeThemeButton } from "./ChangeThemeButton";
 
 const useStyles = makeStyles(theme=>({
     formContainer:{
@@ -67,7 +68,7 @@ export const PaymentContainer = ({title, children, button, expiredInfo, availabl
         <>
             {
                 status===-1?(
-                        <>
+                    <>
                             {available?(
                                 <Paper elevation={8} component='form' className={classes.formContainer} square>
                                 <div className={classes.amount} >
@@ -79,6 +80,7 @@ export const PaymentContainer = ({title, children, button, expiredInfo, availabl
                                     <Hidden smUp>
                                         <Divider/>
                                     </Hidden>
+                                    <ChangeThemeButton/>
                                     {
                                         title && (
                                             <Typography variant='h6' style={{marginTop:'1rem', fontWeight:'lighter'}} align='center'>{title}</Typography>

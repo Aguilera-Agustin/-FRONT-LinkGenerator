@@ -8,4 +8,6 @@ export const types = {
     dbStartLoading:'[DB] Start loading',
     dbEndLoading:'[DB] End loading',
     dbRetrieveData:'[DB] Retrieve Data',
+
+    uiDarkMode: '[UI] Dark Mode'
 }

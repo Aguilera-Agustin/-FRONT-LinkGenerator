@@ -12,10 +12,8 @@ import { TransferScreen } from '../screens/TransferScreen';
 
 
 
-
 export const MainRouter = () => {
-
-    
+       
     return (
         <Router>
             <Switch>
