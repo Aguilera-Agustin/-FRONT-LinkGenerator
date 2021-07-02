@@ -37,17 +37,19 @@ const login = (account) =>({
 
 export const transfer = (id, user, amount, type) =>{
     return async (dispatch) =>{
+        dispatch(startLoading())
         const chainId = await window.ethereum.request({ method: 'eth_chainId' });
         const isNetworkAvailable = await checkNetwork(chainId)
         if(isNetworkAvailable){
             const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-            const {abi, address, moneyType} = getAbiAddress(type)
+            const {abi, address, moneyType, metamask} = await getDataFromCurrency(type, amount)
             const contractInstance = new web3.eth.Contract(abi, address);
             const tx = {
                 from: user[0],
                 to: contractInstance._address,
-                data: contractInstance.methods.transfer('0x2f318C334780961FB129D2a6c30D0763d9a5C970', web3.utils.toWei( amount.toString(), moneyType ) ).encodeABI(),
+                data: contractInstance.methods.transfer('0x2f318C334780961FB129D2a6c30D0763d9a5C970', web3.utils.toWei( metamask.toString(), moneyType ) ).encodeABI(),
             }
+            dispatch(endLoading())
             web3.eth.sendTransaction(tx).then(res => {
                 const transactionNumber = res.transactionHash
                 customAxios('pay/buySuccess', {id, follow_number_crypto: transactionNumber, chain_id: chainId}, 'put')
@@ -84,19 +86,24 @@ const checkNetwork = async (chainId) =>{
     return chainId===networks.binance || chainId===networks.polygon || chainId===networks.ethereum
 }
 
-const getAbiAddress = (type) =>{
+const getDataFromCurrency = async (type,amount) =>{
+    
     if(type==='usdt'){
+        const {metamask} = await customAxios(`pay/getValueForMetamask?asset=USDT&amount=${amount}`)
         return {
             abi: abiUSDT,
             address: addressUSDT,
-            moneyType: 'lovelace'
+            moneyType: 'lovelace',
+            metamask
         }
     }
     if(type==='dai'){
+        const {metamask} = await customAxios(`pay/getValueForMetamask?asset=DAI&amount=${amount}`)
         return {
             abi: abiDai,
             address: addressDai,
-            moneyType: 'ether'
+            moneyType: 'ether',
+            metamask
         }
     }  
 }
@@ -126,3 +133,12 @@ export const payWithBank = (data, id, setLoading) =>{
         
     }
 }
+
+
+const startLoading = () => ({
+    type: types.cryptoStartLoading
+})
+
+const endLoading = () => ({
+    type: types.cryptoEndLoading
+})

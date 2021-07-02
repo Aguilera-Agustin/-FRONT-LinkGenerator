@@ -38,16 +38,16 @@ export const CryptoScreen = () => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.payment.userAddress)
     const urlData = useSelector(state=>state.url.urlData)
-    
+    const {loading} = useSelector(state=>state.payment)
+
     const handleOnLogin = () =>{
         dispatch(loginCheck())
     }
-
+    
     const handleOnPay = (type) =>{
         dispatch(transfer(urlData.enrcyptedId,user, urlData.amount, type))
     }
-   
-
+    
     const classes = useStyles()
     const paymentMethods = [
         {
@@ -62,14 +62,14 @@ export const CryptoScreen = () => {
             title:'Pagar con USDT',
             action: ()=>{handleOnPay('usdt')},
             icon: <SendIcon className={classes.logo}/>,
-            disabled: !user
+            disabled: !user || loading
         },
         {
             name:'dai',
             title:'Pagar con DAI',
             action: ()=>{handleOnPay('dai')},
             icon: <SendIcon className={classes.logo}/>,
-            disabled: !user
+            disabled: !user || loading
         }
         
        
