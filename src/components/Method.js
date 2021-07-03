@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 
 import { makeStyles, Paper, Typography } from "@material-ui/core"
+import { CircularProgress } from "@material-ui/core"
 
 const useStyles = makeStyles({
 
@@ -35,7 +36,7 @@ const useStyles = makeStyles({
 
 
 export const Method = ({data}) => {
-    const {title, icon, link, action, disabled} = data
+    const {title, icon, link, action, disabled, loading} = data
     const classes = useStyles()
     
     return (
@@ -49,7 +50,7 @@ export const Method = ({data}) => {
             :
             (
                 <Paper elevation={3} square className={disabled?(classes.disabledContainer):(classes.container)} onClick={disabled?(null):(action)}>
-                    {icon}
+                    {(disabled&&loading) ? (<CircularProgress style={{margin:'0 1rem'}}/>) : (icon) }
                     <Typography  variant='h6' color='textSecondary'>{title}</Typography>
                 </Paper>
 
