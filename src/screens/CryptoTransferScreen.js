@@ -5,7 +5,9 @@ import TextField from '@material-ui/core/TextField';
 import { Button } from "@material-ui/core";
 import { FormControl } from '@material-ui/core';
 import { NotFound } from "./NotFound";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { binanceTransfer } from "../redux/actions/paymentActions";
 
 const useStyles = makeStyles((theme)=>({
     container:{
@@ -33,7 +35,10 @@ const useStyles = makeStyles((theme)=>({
     },
     textField:{
         marginTop:'2rem',
-        width: '90%'
+        width: '90%',
+        [theme.breakpoints.down("sm")]: { 
+            width: '100%'
+        }
     },
     button:{
         width:'30%',
@@ -43,8 +48,17 @@ const useStyles = makeStyles((theme)=>({
 
 export const CryptoTransferScreen = () => {
     const classes = useStyles()
+    const dispatch = useDispatch()
     const {urlData} = useSelector(state => state.url)
-
+    const [followNumber, setFollowNumber] = useState('')
+    const [loading, setLoading] = useState(false)
+    const handleOnSubmit = (e) =>{
+        e.preventDefault()
+        setLoading(true)
+        dispatch(binanceTransfer(urlData.enrcyptedId, followNumber ))
+        setLoading(false)
+        
+    }
     return (
         <>
         {
@@ -52,12 +66,14 @@ export const CryptoTransferScreen = () => {
                 <PaymentContainer button>
                     <div className={classes.container}>
                         <img className={classes.img} src='/qr.png' alt='qr_code'/> 
-                        <Typography variant='body2'>agustin.aguilera424@gmail.com</Typography>
+                        <Typography variant='subtitle2'>SuperCripto</Typography>
+                        <Typography variant='body2'>info@supersistemasweb.com</Typography>
                     </div>
-                    <FormControl className={classes.form}>
-                        <TextField  className={classes.textField} id="follow_number" label="Número de seguimiento" variant="outlined" />
-                        <Button className={classes.button} variant='contained' color='primary'>Enviar</Button>
-                    </FormControl>
+
+                        <FormControl className={classes.form} onSubmit={handleOnSubmit} component='form'>
+                            <TextField  autoComplete='off' className={classes.textField} id="follow_number" label="Número de seguimiento" onChange={(e)=>setFollowNumber(e.target.value)} disabled={loading} variant="outlined"/>
+                            <Button className={classes.button} variant='contained' color='primary' type='submit' disabled={followNumber.length<4 || loading}>Enviar</Button>
+                        </FormControl>
                 </PaymentContainer>
             )
             :

@@ -71,7 +71,7 @@ export const PaymentContainer = ({title, children, button, expiredInfo, availabl
                 status===-1?(
                     <>
                             {available?(
-                                <Paper elevation={8} component='form' className={classes.formContainer} square>
+                                <Paper elevation={8} className={classes.formContainer} square>
                                 <div className={classes.amount} >
                                     <Typography variant='button' style={{fontWeight:'lighter', margin:'0 1rem'}} >A pagar</Typography>
                                     <Typography variant='h3' style={{fontWeight:'lighter',}} >{`U$D ${amount}`}</Typography>

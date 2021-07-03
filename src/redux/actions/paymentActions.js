@@ -34,6 +34,20 @@ const login = (account) =>({
     }
 })
 
+export const binanceTransfer = (id, followNumber) =>{
+    return async (dispatch) => {
+        const res = await customAxios('pay/buyInProgress/crypto', {id, followNumber}, 'put')
+        if(res==='Success!'){
+            Swal.fire({
+                icon: 'success',
+                title: 'Estado',
+                text: 'Pago realizado correctamente!',
+              })
+            dispatch(startGetDataFromId(id))
+        }
+    }
+}
+
 
 export const transfer = (id, user, amount, type) =>{
     return async (dispatch) =>{
