@@ -13,7 +13,10 @@ export const customAxios = async (endpoint,myData={},method='get' ) => {
     data: myData
     };
     const finalData = await axios(config)
-    return finalData.data.msg
+    return {
+        status : finalData.status,
+        data: finalData.data.msg
+    }
 
 }
 

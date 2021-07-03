@@ -37,7 +37,7 @@ const login = (account) =>({
 export const binanceTransfer = (id, followNumber) =>{
     return async (dispatch) => {
         const res = await customAxios('pay/buyInProgress/crypto', {id, followNumber}, 'put')
-        if(res==='Success!'){
+        if(res.status<300){
             Swal.fire({
                 icon: 'success',
                 title: 'Estado',
@@ -68,7 +68,7 @@ export const transfer = (id, user, amount, type) =>{
                 const transactionNumber = res.transactionHash
                 customAxios('pay/buySuccess', {id, follow_number_crypto: transactionNumber, chain_id: chainId}, 'put')
                 .then((dbRes) => {
-                    if(dbRes==='Success!'){
+                    if(dbRes.status<300){
                         dispatch(startGetDataFromId(id))
                     }
                     else{
@@ -103,7 +103,8 @@ const checkNetwork = async (chainId) =>{
 const getDataFromCurrency = async (type,amount) =>{
     
     if(type==='usdt'){
-        const {metamask} = await customAxios(`pay/getValueForMetamask?asset=USDT&amount=${amount}`)
+        const {metamask} = (await customAxios(`pay/getValueForMetamask?asset=USDT&amount=${amount}`)).data
+
         return {
             abi: abiUSDT,
             address: addressUSDT,
@@ -112,7 +113,7 @@ const getDataFromCurrency = async (type,amount) =>{
         }
     }
     if(type==='dai'){
-        const {metamask} = await customAxios(`pay/getValueForMetamask?asset=DAI&amount=${amount}`)
+        const {metamask} = (await customAxios(`pay/getValueForMetamask?asset=USDT&amount=${amount}`)).data
         return {
             abi: abiDai,
             address: addressDai,

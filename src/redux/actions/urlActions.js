@@ -8,17 +8,17 @@ export const startGetDataFromId = (id)=>{
             return null
         }
         const customId = id.split(' ').join('+')
-        const myData = await customAxios('url/desencrypt', {id: customId}, 'post')
+        const myData = (await customAxios('url/desencrypt', {id: customId}, 'post')).data
         if(!myData){
             dispatch(endLoading())
             dispatch(collectData(null))
             return null
         }
-        const arsAux = await customAxios('pay/dollarToArs', {amount: myData.amount},'post')
+        const arsAux = (await customAxios('pay/dollarToArs', {amount: myData.amount},'post')).data
         const ars = arsAux.toFixed(2)
         const dataWithId = {...myData, ars, enrcyptedId:customId}
         if(myData.mp_transfer===0){
-            const mpLink = await customAxios('pay/mercadopago', {amount: dataWithId.amount, id:dataWithId.id, business_type: dataWithId.business_type}, 'post')
+            const mpLink = (await customAxios('pay/mercadopago', {amount: dataWithId.amount, id:dataWithId.id, business_type: dataWithId.business_type}, 'post')).data
             const finalData = {...dataWithId, mpLink}
             dispatch(collectData(finalData))
             dispatch(endLoading())
