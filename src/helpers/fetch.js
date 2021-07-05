@@ -7,7 +7,7 @@ export const customAxios = async (endpoint,myData={},method='get' ) => {
     method,
     url: basePath+endpoint,
     headers: { 
-        'Authorization': 'Basic YWd1c3RpbjphZ3VpbGVyYQ==', 
+        'Authorization': `Basic ${process.env.REACT_APP_API_AUTH}`, 
         'Content-Type': 'application/json'
     },
     data: myData
@@ -31,7 +31,7 @@ export const getPdf = (id, setLoading) => {
     method: 'put',
     url: basePath + 'pay/voucher',
     headers: { 
-        'Authorization': 'Basic YWd1c3RpbjphZ3VpbGVyYQ==', 
+        'Authorization': `Basic ${process.env.REACT_APP_API_AUTH}`, 
         'Content-Type': 'application/json'
     },
     data,
@@ -61,7 +61,7 @@ export const sendImage = async (id, data) => {
     const newData = await axios.put(basepath+'pay/buyInProcess', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
-            'Authorization': 'Basic YWd1c3RpbjphZ3VpbGVyYQ=='
+            'Authorization': `Basic ${process.env.REACT_APP_API_AUTH}`
           }
     })
    return newData
