@@ -45,7 +45,7 @@ export const CryptoScreen = () => {
     }
     
     const handleOnPay = (type) =>{
-        dispatch(transfer(urlData.enrcyptedId,user, urlData.amount, type))
+        dispatch(transfer(urlData.enrcyptedId,user, urlData.amount, type, urlData.business_type))
     }
     
     const classes = useStyles()

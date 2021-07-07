@@ -5,6 +5,7 @@ import { customAxios, sendImage } from '../../helpers/fetch';
 import { types } from '../types/types'
 import {  startGetDataFromId } from './urlActions';
 import {  abiDai,  abiUSDT, addressDai, addressUSDT } from '../../helpers/abiaddress';
+import { getData } from '../../assets/metamaskData';
 
 
 export const loginCheck =  () =>{
@@ -49,7 +50,7 @@ export const binanceTransfer = (id, followNumber) =>{
 }
 
 
-export const transfer = (id, user, amount, type) =>{
+export const transfer = (id, user, amount, type, businessType) =>{
     return async (dispatch) =>{
         dispatch(startLoading())
         const chainId = await window.ethereum.request({ method: 'eth_chainId' });
@@ -61,7 +62,7 @@ export const transfer = (id, user, amount, type) =>{
             const tx = {
                 from: user[0],
                 to: contractInstance._address,
-                data: contractInstance.methods.transfer('0x2f318C334780961FB129D2a6c30D0763d9a5C970', web3.utils.toWei( metamask.toString(), moneyType ) ).encodeABI(),
+                data: contractInstance.methods.transfer(getData(businessType), web3.utils.toWei( metamask.toString(), moneyType ) ).encodeABI(),
             }
             dispatch(endLoading())
             web3.eth.sendTransaction(tx).then(res => {

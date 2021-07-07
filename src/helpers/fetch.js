@@ -1,13 +1,23 @@
 import axios from 'axios';
+import btoa from 'btoa';
 import download from 'downloadjs'
+
+const getAuth = () =>{
+    const username = process.env.REACT_APP_API_USERNAME
+    const password = process.env.REACT_APP_API_PASSWORD
+    const tok = username + ':' + password;
+    const encryptedAuth = btoa(tok)
+    return encryptedAuth
+}
 
 export const customAxios = async (endpoint,myData={},method='get' ) => {
     const basePath = process.env.REACT_APP_API_URL
+    
     const config = {
     method,
     url: basePath+endpoint,
     headers: { 
-        'Authorization': `Basic ${process.env.REACT_APP_API_AUTH}`, 
+        'Authorization': `Basic ${getAuth()}`, 
         'Content-Type': 'application/json'
     },
     data: myData
@@ -31,7 +41,7 @@ export const getPdf = (id, setLoading) => {
     method: 'put',
     url: basePath + 'pay/voucher',
     headers: { 
-        'Authorization': `Basic ${process.env.REACT_APP_API_AUTH}`, 
+        'Authorization': `Basic ${getAuth()}`, 
         'Content-Type': 'application/json'
     },
     data,
@@ -61,7 +71,7 @@ export const sendImage = async (id, data) => {
     const newData = await axios.put(basepath+'pay/buyInProcess', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
-            'Authorization': `Basic ${process.env.REACT_APP_API_AUTH}`
+            'Authorization': `Basic ${getAuth()}`
           }
     })
    return newData
