@@ -67,7 +67,7 @@ export const ChoosePayment = () => {
         },
         {
             name:'binance',
-            title:'Transferencia Criptomonedas',
+            title:'Transferencia Binance P2P',
             icon: <SendIcon className={classes.logo}/>,
             link:`/binance_transfer`,
             disabled:bank_transfer===-1
