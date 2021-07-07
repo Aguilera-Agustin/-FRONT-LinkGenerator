@@ -12,6 +12,7 @@ import { payWithBank } from '../redux/actions/paymentActions'
 import { firstData, secondData } from '../helpers/transferData'
 import { NotFound } from './NotFound'
 import { useState } from 'react'
+import { isDateAvailable } from '../helpers/getDateDiff'
 
 const useStyles = makeStyles((theme)=>({
     eachText:{
@@ -111,7 +112,7 @@ export const TransferScreen = () => {
         <>
         {
             urlData?(
-                <PaymentContainer button>
+                <PaymentContainer button available={isDateAvailable(urlData.createdAt, urlData.duration)}>
                     <Typography variant="h5" align='center' color="initial" style={{marginTop:'1rem'}}>Datos</Typography>
                     <Typography className={classes.eachText} >Tipo : {urlData.bankType===0?(firstData.type):(secondData.type)}</Typography>
                     <Typography className={classes.eachText} >CBU : {urlData.bankType===0?(firstData.cbu):(secondData.cbu)}</Typography>

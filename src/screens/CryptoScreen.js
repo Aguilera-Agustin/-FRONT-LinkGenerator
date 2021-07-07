@@ -9,6 +9,7 @@ import { PaymentContainer }from '../components/PaymentContainer'
 import { loginCheck, transfer } from "../redux/actions/paymentActions";
 import { NotFound } from "./NotFound";
 import { Method } from "../components/Method"
+import { isDateAvailable } from "../helpers/getDateDiff";
 
 const useStyles = makeStyles({
     container:{
@@ -83,7 +84,7 @@ export const CryptoScreen = () => {
         <>
             {
                 urlData?(
-                    <PaymentContainer button>
+                    <PaymentContainer button available={isDateAvailable(urlData.createdAt, urlData.duration)}>
                     {
                         urlData.crypto_transfer!==1&&(
     

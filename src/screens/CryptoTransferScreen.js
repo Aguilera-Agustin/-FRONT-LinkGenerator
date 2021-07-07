@@ -8,6 +8,7 @@ import { NotFound } from "./NotFound";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { binanceTransfer } from "../redux/actions/paymentActions";
+import { isDateAvailable } from "../helpers/getDateDiff";
 
 const useStyles = makeStyles((theme)=>({
     container:{
@@ -63,7 +64,7 @@ export const CryptoTransferScreen = () => {
         <>
         {
             urlData?(
-                <PaymentContainer button>
+                <PaymentContainer button available={isDateAvailable(urlData.createdAt, urlData.duration)}>
                     <div className={classes.container}>
                         <img className={classes.img} src='/qr.png' alt='qr_code'/> 
                         <Typography variant='subtitle2'>SuperCripto</Typography>
