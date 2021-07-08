@@ -76,6 +76,7 @@ export const PaymentContainer = ({title, children, button, expiredInfo, availabl
                                     <Typography variant='button' style={{fontWeight:'lighter', margin:'0 1rem'}} >A pagar</Typography>
                                     <Typography variant='h3' style={{fontWeight:'lighter',}} >{`U$D ${amount}`}</Typography>
                                     <Typography variant='h6' color='textSecondary' style={{fontWeight:'lighter',}} >{`$ARS ${ars}`}</Typography>
+                                    <Typography variant='body2' color='textSecondary' style={{fontWeight:'lighter', marginTop:'0.3rem'}} >Pagos con CriptoMonedas - X % OFF</Typography>
                                 </div>
                                 <div style={{width:'100%'}}>
                                     <Hidden smUp>
