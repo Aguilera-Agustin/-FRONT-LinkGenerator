@@ -6,3 +6,5 @@ export const getData = (business_type) =>{
         return '0xBa2080d16Dd5cD7EBAFF71753b2cD6C0b55CDb23'
     }
 }
+
+
