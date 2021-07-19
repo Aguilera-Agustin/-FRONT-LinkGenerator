@@ -53,11 +53,14 @@ export const UploadImageForm = ({urlData}) => {
     const [files, setFiles] = useState([])
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
+    console.log({images})
+    console.log({files})
 
     const handleOnClick = () =>{
         document.querySelector('#fileSelector').click()
     }
     const handleFileChange = (e) =>{
+        console.log("asdasd")
         if(e.target.files.length === 0 ){
             return null
         }
@@ -77,6 +80,7 @@ export const UploadImageForm = ({urlData}) => {
         myFiles.splice(index,1)
         setImages(newArray)
         setFiles(myFiles)
+        document.getElementById("fileSelector").value=null; 
     }
     
     const handleOnSend = () => {
