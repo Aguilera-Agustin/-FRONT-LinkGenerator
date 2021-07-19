@@ -42,7 +42,7 @@ export const binanceTransfer = (id, followNumber) =>{
             Swal.fire({
                 icon: 'success',
                 title: 'Estado',
-                text: 'Pago realizado correctamente!',
+                text: 'Pago informado correctamente!',
               })
             dispatch(startGetDataFromId(id))
         }
