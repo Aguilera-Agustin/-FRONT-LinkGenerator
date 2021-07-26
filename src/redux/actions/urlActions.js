@@ -17,8 +17,8 @@ export const startGetDataFromId = (id)=>{
         const arsAux = (await customAxios('pay/dollarToArs', {amount: myData.amount},'post')).data
         const ars = arsAux.toFixed(2)
         const dataWithId = {...myData, ars, enrcyptedId:customId}
-        if(myData.mp_transfer===0){
-            const mpLink = (await customAxios('pay/mercadopago', {amount: dataWithId.amount, id:dataWithId.id, business_type: dataWithId.business_type}, 'post')).data
+        if(myData.mp_transfer===0) {
+            const mpLink = (await customAxios('pay/mercadopago', {amount: dataWithId.amount, id:dataWithId.enrcyptedId, business_type: dataWithId.business_type}, 'post')).data
             const finalData = {...dataWithId, mpLink}
             dispatch(collectData(finalData))
             dispatch(endLoading())
