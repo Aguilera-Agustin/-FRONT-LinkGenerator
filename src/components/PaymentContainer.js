@@ -6,6 +6,7 @@ import {  Button, Divider, Hidden, makeStyles, Paper, Typography } from '@materi
 import { SucessScreen } from "../screens/SucessScreen";
 import { LinkExpired } from "../screens/LinkExpired";
 import { ChangeThemeButton } from "./ChangeThemeButton";
+import { MoneySelector } from "./MoneySelector";
 
 const useStyles = makeStyles(theme=>({
     formContainer:{
@@ -58,7 +59,7 @@ const useStyles = makeStyles(theme=>({
 
 
 
-export const PaymentContainer = ({title, children, button, expiredInfo, available=true}) => {
+export const PaymentContainer = ({title, children, button, expiredInfo, available=true, money}) => {
     const history = useHistory()
     const classes = useStyles()
     const {amount} = useSelector(state => state.url.urlData)
@@ -74,9 +75,19 @@ export const PaymentContainer = ({title, children, button, expiredInfo, availabl
                                 <Paper elevation={8} className={classes.formContainer} square>
                                 <div className={classes.amount} >
                                     <Typography variant='button' style={{fontWeight:'lighter', margin:'0 1rem'}} >A pagar</Typography>
-                                    <Typography variant='h3' style={{fontWeight:'lighter',}} >{`U$D ${amount}`}</Typography>
-                                    <Typography variant='h6' color='textSecondary' style={{fontWeight:'lighter',}} >{`$ARS ${ars}`}</Typography>
-                                    <Typography variant='body2' color='textSecondary' style={{fontWeight:'lighter', marginTop:'0.3rem'}} >Pagos con CriptoMonedas - X % OFF</Typography>
+                                    {money?(
+                                        <>
+                                        <Typography variant='h3' style={{fontWeight:'lighter',}} >{money.money.value}</Typography>
+                                        <MoneySelector change={money.change} value={money.money.currency}/>
+                                        </>
+                                    ):
+                                    (
+                                        <>
+                                            <Typography variant='h3' style={{fontWeight:'lighter',}} >{`U$D ${amount}`}</Typography>
+                                            <Typography variant='h6' color='textSecondary' style={{fontWeight:'lighter',}} >{`$ARS ${ars}`}</Typography>
+                                            <Typography variant='body2' color='textSecondary' style={{fontWeight:'lighter', marginTop:'0.3rem'}} >Pagos con CriptoMonedas - X % OFF</Typography>
+                                        </>
+                                    )}
                                 </div>
                                 <div style={{width:'100%'}}>
                                     <Hidden smUp>

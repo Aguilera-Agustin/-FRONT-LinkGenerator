@@ -53,7 +53,7 @@ export const ChoosePayment = () => {
         },
         {
             name:'criptomoneda',
-            title:'Billetera Criptomoneda',
+            title:'Transferencia Criptomoneda',
             icon: <AccountBalanceWalletIcon className={classes.logo}/>,
             link:`/crypto`,
             disabled:crypto_transfer===-1
