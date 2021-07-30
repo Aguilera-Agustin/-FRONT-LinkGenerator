@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Divider, makeStyles, TextField } from '@material-ui/core'
 import { PaymentContainer } from '../components/PaymentContainer'
-
+import { useDispatch, useSelector } from "react-redux"
+import { startGetCurrency } from '../redux/actions/paymentActions';
 
 const useStyles = makeStyles({
     dataContainer: {
@@ -28,16 +29,22 @@ const useStyles = makeStyles({
 
 export const CryptoScreen = () => {
     const classes = useStyles();
-    const [money, setMoney] = useState({currency: '', value: 'U$D 1.33'})
+    const dispatch = useDispatch()
+    const [money, setMoney] = useState('usdt')
+    const moneyValue = useSelector(state => state.payment.money)
+    useEffect(() => {
+        dispatch(startGetCurrency())
+    }, [dispatch])
     const handleOnChange = (e) =>{
-        const newMoney = {
-            currency: e.target.value,
-            value: 'U$D 1.33'
-        }
-        setMoney(newMoney)
+        setMoney(e.target.value)
+    }
+    const moneyToSend={
+        currency: money,
+        action: handleOnChange,
+        value: moneyValue?(moneyValue[money]):'Cargando...'
     }
     return (
-        <PaymentContainer button title='Datos' money={{money, change:handleOnChange}}>
+        <PaymentContainer button title='Datos' money={{money: moneyToSend}}>
             <div className={classes.dataContainer}>
                 <p>Networks : <b>Binance</b> | <b>Polygon</b> | <b>Etherum</b> </p>
                 <p>Monedas : <b>USDT</b> | <b>USDC</b> | <b>DAI</b> | <b>ETH</b> </p>

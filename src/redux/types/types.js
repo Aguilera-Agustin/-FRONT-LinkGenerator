@@ -1,9 +1,7 @@
 export const types = {
     cryptoStartLoading: '[CRYPTO] Start Loading',
     cryptoEndLoading: '[CRYPTO] End Loading',
-    cryptoLogin: '[CRYPTO] Login',
-    cryptoError: '[CRYPTO] Error',
-    cryptoSuccessfull: '[CRYPTO] Successfull',
+    cryptoGetCurrency: '[CRYPTO] Get Currency',
 
     dbStartLoading:'[DB] Start loading',
     dbEndLoading:'[DB] End loading',

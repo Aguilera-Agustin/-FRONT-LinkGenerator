@@ -23,7 +23,6 @@ export const MoneySelector = ({change, value}) => {
      
         >
           <MenuItem value={`usdt`}>USDT</MenuItem>
-          <MenuItem value={`usdc`}>USDC</MenuItem>
           <MenuItem value={`dai`}>DAI</MenuItem>
           <MenuItem value={`eth`}>ETH</MenuItem>
          
