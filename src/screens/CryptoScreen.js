@@ -41,7 +41,7 @@ export const CryptoScreen = () => {
     const moneyToSend={
         currency: money,
         action: handleOnChange,
-        value: moneyValue?(moneyValue[money]):'Cargando...'
+        value: moneyValue?(`${money.toUpperCase()} ${moneyValue[money]}`):'Cargando...'
     }
     return (
         <PaymentContainer button title='Datos' money={{money: moneyToSend}}>

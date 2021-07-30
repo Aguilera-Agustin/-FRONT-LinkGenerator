@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme=>({
         right: 0,
         left: 0,
         fontSize: '0.8rem'
-    }
+    },
    
 }))
 
@@ -74,10 +74,10 @@ export const PaymentContainer = ({title, children, button, expiredInfo, availabl
                             {available?(
                                 <Paper elevation={8} className={classes.formContainer} square>
                                 <div className={classes.amount} >
-                                    <Typography variant='button' style={{fontWeight:'lighter', margin:'0 1rem'}} >A pagar</Typography>
+                                    <Typography align='center' variant='button' style={{fontWeight:'lighter', margin:'0 1rem'}} >A pagar</Typography>
                                     {money?(
                                         <>
-                                        <Typography variant='h3' style={{fontWeight:'lighter',}} >{money.money.value}</Typography>
+                                        <Typography align='center' variant='h3' style={{fontWeight:'lighter',}} >{money.money.value}</Typography>
                                         <MoneySelector change={money.money.action} value={money.money.currency}/>
                                         </>
                                     ):
