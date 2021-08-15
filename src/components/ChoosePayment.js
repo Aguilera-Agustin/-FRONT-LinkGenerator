@@ -38,7 +38,7 @@ const useStyles = makeStyles({
 export const ChoosePayment = () => {
 
     const classes = useStyles()
-    const {mp_transfer, crypto_transfer, bank_transfer, mpLink} = useSelector(state => state.url.urlData)
+    const {mp_transfer, crypto_transfer, bank_transfer,binance_transfer, mpLink} = useSelector(state => state.url.urlData)
     const mercadoPagoOnClick = () =>{
         window.location.assign(mpLink);
     }
@@ -70,7 +70,7 @@ export const ChoosePayment = () => {
             title:'Transferencia Binance P2P',
             icon: <SendIcon className={classes.logo}/>,
             link:`/binance_transfer`,
-            disabled:bank_transfer===-1
+            disabled:binance_transfer===-1
         },
     
     ] 
