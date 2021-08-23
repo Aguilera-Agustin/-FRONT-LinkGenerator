@@ -65,7 +65,7 @@ export const PaymentContainer = ({title, children, button, expiredInfo, availabl
     const {amount} = useSelector(state => state.url.urlData)
     const {ars} = useSelector(state => state.url.urlData)
     const {status} = useSelector(state => state.url.urlData)
-    const {enrcyptedId} = useSelector(state => state.url.urlData)
+    const {encryptedId} = useSelector(state => state.url.urlData)
     return (
         <>
             {
@@ -121,7 +121,7 @@ export const PaymentContainer = ({title, children, button, expiredInfo, availabl
                 )
                 :
                 (
-                    <SucessScreen id={enrcyptedId} status={status} />
+                    <SucessScreen id={encryptedId} status={status} />
                 )
             }
             

@@ -44,7 +44,7 @@ export const CryptoScreen = () => {
 
     const handleOnPay = () =>{
         console.log(urlData)
-        dispatch(binanceTransfer(urlData.enrcyptedId, transactionNumber))
+        dispatch(binanceTransfer(urlData.encryptedId, transactionNumber))
     }
 
     const moneyToSend={

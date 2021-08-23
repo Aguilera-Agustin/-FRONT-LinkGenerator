@@ -56,7 +56,7 @@ export const CryptoTransferScreen = () => {
     const handleOnSubmit = (e) =>{
         e.preventDefault()
         setLoading(true)
-        dispatch(binanceTransfer(urlData.enrcyptedId, followNumber ))
+        dispatch(binanceTransfer(urlData.encryptedId, followNumber ))
         setLoading(false)
         
     }

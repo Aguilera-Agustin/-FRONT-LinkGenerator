@@ -21,7 +21,7 @@ export const MpSuccess = () => {
         <>
         {
             urlData&&(
-                <Redirect to={`pay?id=${urlData.enrcyptedId}`} />
+                <Redirect to={`pay?id=${urlData.encryptedId}`} />
             )
         }
         </>

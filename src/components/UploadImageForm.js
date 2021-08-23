@@ -88,7 +88,7 @@ export const UploadImageForm = ({urlData}) => {
             denyButtonText: `Cancelar`,
           }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(payWithBank(files, urlData.enrcyptedId, setLoading))
+                dispatch(payWithBank(files, urlData.encryptedId, setLoading))
             } 
           })
     }
