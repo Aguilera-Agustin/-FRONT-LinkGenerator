@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button, Divider, makeStyles, TextField } from '@material-ui/core'
 import { PaymentContainer } from '../components/PaymentContainer'
 import { useDispatch, useSelector } from "react-redux"
-import { startGetCurrency } from '../redux/actions/paymentActions';
+import { binanceTransfer, startGetCurrency } from '../redux/actions/paymentActions';
 
 const useStyles = makeStyles({
     dataContainer: {
@@ -31,13 +31,22 @@ export const CryptoScreen = () => {
     const classes = useStyles();
     const dispatch = useDispatch()
     const [money, setMoney] = useState('usdt')
+    const [transactionNumber, setTransactionNumber] = useState('')
     const moneyValue = useSelector(state => state.payment.money)
+    const urlData = useSelector(state => state.url.urlData)
     useEffect(() => {
         dispatch(startGetCurrency())
     }, [dispatch])
     const handleOnChange = (e) =>{
         setMoney(e.target.value)
     }
+
+
+    const handleOnPay = () =>{
+        console.log(urlData)
+        dispatch(binanceTransfer(urlData.enrcyptedId, transactionNumber))
+    }
+
     const moneyToSend={
         currency: money,
         action: handleOnChange,
@@ -51,11 +60,10 @@ export const CryptoScreen = () => {
                 <p>Dirección : <b>0xE81D717f40d08CD3772a9f8e68Ae485A77aCCe80</b></p>
                 <Divider className={classes.divider}/>
                 <div className={classes.buttonContainer}>
-                    <TextField className={classes.textField} autoComplete='off' id="follow_number" label="Número de transaccion"  variant="outlined"/>
-                    <Button size='small' variant='contained' color='primary'>X</Button>
+                    <TextField className={classes.textField} autoComplete='off'  id="follow_number" label="Número de transaccion" value={transactionNumber} onChange={e=>setTransactionNumber(e.target.value)} variant="outlined"/>
                 </div>
                 <div className={classes.centeredButton}>
-                    <Button className={classes.button} variant='contained' color='primary'>Enviar</Button>
+                    <Button className={classes.button} onClick={handleOnPay} variant='contained' color='primary'>Enviar</Button>
                 </div>
             </div>
         </PaymentContainer>
