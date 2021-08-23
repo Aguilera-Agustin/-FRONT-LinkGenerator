@@ -30,6 +30,14 @@ export const startGetDataFromId = (id)=>{
     }
 }
 
+export const selectById = (id) => {
+    return async ( dispatch )=>{
+        const myData = (await customAxios(`url/${id}`)).data
+        dispatch(startGetDataFromId(myData.url.split('id=')[1]))
+    }
+}
+
+
 const collectData = (data) =>({
     type: types.dbRetrieveData,
     payload: data
