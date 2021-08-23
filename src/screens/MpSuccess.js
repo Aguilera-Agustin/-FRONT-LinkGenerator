@@ -16,10 +16,14 @@ export const MpSuccess = () => {
         dispatch(selectById(id))
     }, [dispatch, id])
 
-    const url = useSelector(state => state.url.urlData.enrcyptedId)
+    const urlData = useSelector(state => state.url.urlData)
     return (
         <>
-            <Redirect to={url} />
+        {
+            urlData&&(
+                <Redirect to={`pay?id=${urlData.enrcyptedId}`} />
+            )
+        }
         </>
     )
 }
