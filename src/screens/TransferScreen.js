@@ -12,7 +12,8 @@ import { isDateAvailable } from '../helpers/getDateDiff'
 import { TransferSelector } from '../components/TransferSelector'
 
 import {UploadImageForm} from '../components/UploadImageForm'
-
+import { IconButton } from '@material-ui/core'
+import AssignmentIcon from '@material-ui/icons/Assignment';
 
 const useStyles = makeStyles((theme)=>({
     eachText:{
@@ -25,7 +26,10 @@ const useStyles = makeStyles((theme)=>({
         display:'flex',
         flexWrap:'wrap'
     },
-   
+    copyContainer:{
+        display:'flex',
+        alignitems:'flex-end'
+    }
     
     
 }))
@@ -34,11 +38,13 @@ export const TransferScreen = ({type}) => {
     const urlData = useSelector(state=>state.url.urlData)
     const [bank, setBank] = useState('')
     const {acc, alias, num, transferData, type:transferType, bank:usdBank} = getTransferData(urlData.business_type, type, bank)
-    const myData = getTransferData(urlData.business_type, type, bank)
-    console.log(myData)
     
     const changeBank = (e) =>{
         setBank(e.target.value.toLowerCase())
+    }
+
+    const handleOnCopy = (state) =>{
+        navigator.clipboard.writeText(state)
     }
 
     return (
@@ -51,10 +57,19 @@ export const TransferScreen = ({type}) => {
                     <Typography className={classes.eachText} >Titular : {urlData.business_type===0?('Luis Fernando de Jesus Nuñez'):('Supersistemasweb SRL')}  </Typography>
                     <Typography className={classes.eachText} >Banco : {type==='usd'?(usdBank) : (bank.toUpperCase() || 'MACRO')}  </Typography>
                     <Typography className={classes.eachText} >Tipo : {acc}  </Typography>
-                    <Typography className={classes.eachText} >{transferType} : {transferData}</Typography>
-                    <Typography className={classes.eachText} >Alias : {alias}</Typography>
+                    <div className={classes.copyContainer}>
+                        <Typography className={classes.eachText} >{transferType} : {transferData}</Typography>
+                        <IconButton  color="primary" aria-label="upload picture" component="span" onClick={()=>handleOnCopy(transferData)}>
+                            <AssignmentIcon />
+                        </IconButton> 
+                    </div>
+                    <div className={classes.copyContainer}>
+                        <Typography className={classes.eachText} >Alias : {alias}</Typography>
+                        <IconButton  color="primary" aria-label="upload picture" component="span" onClick={()=>handleOnCopy(alias)}>
+                            <AssignmentIcon />
+                        </IconButton> 
+                    </div>
                     <Typography className={classes.eachText} >Cuit : {urlData.business_type===0?('20-26110188-3'):('33-71469665-9')}</Typography>
-                    <Typography className={classes.eachText} >Razón social : {urlData.business_type}</Typography>
                     {
                         num&&(
                             <Typography className={classes.eachText} >Número de cuenta : {num}</Typography>
