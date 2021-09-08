@@ -54,8 +54,8 @@ export const CryptoScreen = () => {
     return (
         <PaymentContainer button title='Datos' money={{money: moneyToSend}}>
             <div className={classes.dataContainer}>
-                <p>Networks : <b>Binance</b> | <b>Polygon</b> | <b>Etherum</b> </p>
-                <p>Monedas : <b>USDT</b> | <b>USDC</b> | <b>DAI</b> | <b>ETH</b> </p>
+                <p>Networks : <b>Binance</b> | <b>Polygon</b> | <b>Ethereum</b> </p>
+                <p>Monedas : <b>USDT</b> | <b>DAI</b> | <b>ETH</b> | <b>BTC</b> </p>
                 <p>Dirección : <b>0xE81D717f40d08CD3772a9f8e68Ae485A77aCCe80</b></p>
                 <Divider className={classes.divider}/>
                 <div className={classes.buttonContainer}>

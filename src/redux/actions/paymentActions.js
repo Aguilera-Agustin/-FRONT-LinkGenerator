@@ -50,7 +50,8 @@ export const startGetCurrency = () =>{
         const usdt = await customAxios(`pay/getValueForMetamask?asset=usdt&amount=${amount}`)
         const dai = await customAxios(`pay/getValueForMetamask?asset=dai&amount=${amount}`)
         const eth = await customAxios(`pay/getValueForMetamask?asset=eth&amount=${amount}`)
-        const finalValues = ({usdt: usdt.data.metamask, dai: dai.data.metamask, eth: eth.data.metamask})
+        const btc = await customAxios(`pay/getValueForMetamask?asset=btc&amount=${amount}`)
+        const finalValues = ({usdt: usdt.data.metamask, dai: dai.data.metamask, eth: eth.data.metamask, btc: btc.data.metamask})
         dispatch(getCurrency(finalValues))
         dispatch(endLoading())
 

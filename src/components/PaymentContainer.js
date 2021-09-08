@@ -78,7 +78,7 @@ export const PaymentContainer = ({title, children, button, expiredInfo, availabl
                                     {money?(
                                         <>
                                         <Typography align='center' variant='h3' style={{fontWeight:'lighter',}} >{money.money.value}</Typography>
-                                        <MoneySelector change={money.money.action} value={money.money.currency}/>
+                                        <MoneySelector change={money.money.action} value={money.money.currency} amount={money.money.value}/>
                                         </>
                                     ):
                                     (
